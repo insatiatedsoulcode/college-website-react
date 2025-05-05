@@ -10,7 +10,7 @@ import Navigation from './Navigation';
 import logo from '../assets/images/logo.png';// 1. Import the logo (adjust path if needed)
 
 function Header() {
-  const collegeName = "Your College Name"; // Keep this for alt text or title
+  const collegeName = "Uday Pratap College"; // Keep this for alt text or title
 
   return (
     <header>

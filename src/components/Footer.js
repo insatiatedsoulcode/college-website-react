@@ -4,7 +4,7 @@ import React from 'react';
 
 function Footer() {
   const currentYear = new Date().getFullYear(); // Use current year
-  const collegeName = "Your College Name"; // Change to your college name
+  const collegeName = "Uday Pratap College"; // Change to your college name
   return (
     <footer>
       <div className="container">

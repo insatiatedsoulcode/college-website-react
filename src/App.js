@@ -3,19 +3,21 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+// import ChatbotLauncher from './components/ChatbotLauncher'; // 1. Removed chatbot import
 
-// Import page components (ensure paths match your file structure)
+// Import page components
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-import AcademicsPage from './pages/AcademicsPage';    // New/Renamed
-import AdmissionsPage from './pages/AdmissionsPage'; // New/Renamed
-import StudentLifePage from './pages/StudentLifePage'; // New/Renamed
+import AcademicsPage from './pages/AcademicsPage';
+import AdmissionsPage from './pages/AdmissionsPage';
+import StudentLifePage from './pages/StudentLifePage';
 import ContactPage from './pages/ContactPage';
-import NotFoundPage from './pages/NotFoundPage';
+import ComputerSciencePage from './pages/ComputerSciencePage';
+import NotFoundPage from './pages/NotFoundPage'; // Assuming you have this
 
-import './style.css'; // Import global styles
+import './style.css';
 
-// Layout Component (remains the same)
+// Layout Component (remains the same, but without chatbot)
 function Layout() {
   return (
     <>
@@ -26,6 +28,7 @@ function Layout() {
         </div>
       </main>
       <Footer />
+      {/* <ChatbotLauncher /> */} {/* 2. Removed chatbot component instance */}
     </>
   );
 }
@@ -34,22 +37,22 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Update routes for the college structure */}
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="academics" element={<AcademicsPage />} />   {/* New */}
-          <Route path="admissions" element={<AdmissionsPage />} /> {/* New */}
-          <Route path="student-life" element={<StudentLifePage />} />{/* New */}
+          <Route path="academics" element={<AcademicsPage />} />
+          <Route path="academics/computer-science" element={<ComputerSciencePage />} />
+          {/* Add routes for other departments similarly */}
+          {/* <Route path="academics/arts-humanities" element={<ArtsPage />} /> */}
+          {/* <Route path="academics/business-administration" element={<BusinessPage />} /> */}
+
+          <Route path="admissions" element={<AdmissionsPage />} />
+          <Route path="student-life" element={<StudentLifePage />} />
           <Route path="contact" element={<ContactPage />} />
 
-          {/* Optional: Catch-all 404 route inside layout */}
+          {/* Catch-all 404 route */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>
-
-        {/* Optional: Route for 404 page without the main layout */}
-        {/* <Route path="*" element={<NotFoundPage />} /> */}
-
       </Routes>
     </Router>
   );
