@@ -1,0 +1,158 @@
+/* src/style.css */
+
+/* --- General Styles --- */
+/* Add your basic resets and body styles here if you haven't already */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif; /* Consider choosing a specific font */
+    line-height: 1.6;
+    color: #333; /* Default text color */
+}
+
+/* --- Header Styling --- */
+header {
+    background: #333; /* Example dark header background */
+    color: #fff; /* Default text color in header */
+    padding: 0.5rem 0; /* Adjust vertical padding as needed */
+    border-bottom: 3px solid #0779e4; /* Example accent border */
+}
+
+/* Optional: If you used .logo-container on the h1/div */
+.logo-container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+  height: 70px; /* ADJUST THIS VALUE for desired logo height */
+  width: auto;   /* Let width adjust automatically */
+  vertical-align: middle; /* Helps alignment */
+}
+
+/* Header Container - Applies Flexbox */
+header .container {
+    max-width: 1100px; /* Or your desired max width */
+    margin: 0 auto; /* Center the container */
+    padding: 0 20px; /* Side padding */
+    display: flex;
+    justify-content: space-between; /* Spaces out logo, nav, button */
+    align-items: center; /* Vertically aligns items */
+}
+
+
+/* --- Navigation Styling --- */
+nav {
+  /* Optional margin to space nav from logo/button */
+  margin: 0 15px;
+}
+
+nav ul {
+    display: flex;          /* Makes list items horizontal */
+    list-style: none;     /* Remove bullets */
+    margin: 0;            /* Remove default margin */
+    padding: 0;           /* Remove default padding */
+    gap: 5px;             /* Space between nav items (adjust value) */
+}
+
+nav ul li {
+    /* Usually no specific styles needed here with flexbox */
+}
+
+/* Styling for the links within the nav */
+nav ul li a {
+    display: block;         /* Important for padding */
+    padding: 12px 18px;   /* Size of the clickable area/tab */
+    color: #fff;          /* Text color (for dark header) */
+    text-decoration: none;/* Remove underline */
+    border-radius: 4px 4px 0 0; /* Optional: Slight curve on top */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;  /* Prevent links from wrapping to two lines */
+}
+
+/* Hover effect for nav links */
+nav ul li a:hover {
+    background-color: #555; /* Example hover background */
+    color: #fff;
+}
+
+/* Active state for the current page's nav link */
+/* Assumes you use className='active' on NavLink */
+nav ul li a.active {
+    background-color: #0779e4; /* Active tab background color */
+    color: #fff; /* Active tab text color */
+    font-weight: bold;
+}
+
+
+/* --- Call To Action Button Styling --- */
+.cta-btn {
+    background: #0779e4; /* Accent color */
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: inline-block;
+    white-space: nowrap; /* Prevent button text wrapping */
+}
+
+.cta-btn:hover {
+    background: #045aab; /* Darker shade on hover */
+}
+
+/* --- Main Content Area --- */
+main {
+    padding: 30px 0; /* Space above/below main content */
+    min-height: 70vh; /* Ensure footer is pushed down */
+}
+
+main .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+main h2 {
+    margin-bottom: 20px;
+    color: #333; /* Heading color */
+}
+
+/* --- Footer Styling --- */
+footer {
+    background: #333; /* Match header background */
+    color: #aaa; /* Lighter text color for footer */
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px; /* Space above footer */
+    font-size: 0.9rem;
+}
+
+footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+/* --- Other Styles --- */
+/* Add your styles for .page-image, .gallery-grid etc. here */
+.page-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  display: block;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
