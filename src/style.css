@@ -1,7 +1,6 @@
 /* src/style.css */
 
 /* --- General Styles --- */
-/* Add your basic resets and body styles here if you haven't already */
 * {
     margin: 0;
     padding: 0;
@@ -11,18 +10,28 @@
 body {
     font-family: sans-serif; /* Consider choosing a specific font */
     line-height: 1.6;
-    color: #333; /* Default text color */
+    color: #333;
 }
 
 /* --- Header Styling --- */
 header {
-    background: #333; /* Example dark header background */
-    color: #fff; /* Default text color in header */
-    padding: 0.5rem 0; /* Adjust vertical padding as needed */
-    border-bottom: 3px solid #0779e4; /* Example accent border */
+    background: #333; /* Dark header background */
+    color: #fff;
+    /* Increased vertical padding to give logo more space */
+    padding: 0.75rem 0; /* Approx 12px top/bottom */
+    border-bottom: 3px solid #0779e4; /* Accent border */
+    width: 100%; /* Ensure header takes full width */
 }
 
-/* Optional: If you used .logo-container on the h1/div */
+header .container {
+    max-width: 1100px; /* Max width of header content */
+    margin: 0 auto; /* Center header content */
+    padding: 0 20px; /* Side padding in header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Keep items vertically centered */
+}
+
 .logo-container {
     margin: 0;
     padding: 0;
@@ -31,69 +40,49 @@ header {
 }
 
 .header-logo {
-  height: 70px; /* ADJUST THIS VALUE for desired logo height */
+  /* Increased logo height significantly */
+  height: 90px; /* ADJUST THIS VALUE for desired logo height */
   width: auto;   /* Let width adjust automatically */
   vertical-align: middle; /* Helps alignment */
 }
 
-/* Header Container - Applies Flexbox */
-header .container {
-    max-width: 1100px; /* Or your desired max width */
-    margin: 0 auto; /* Center the container */
-    padding: 0 20px; /* Side padding */
-    display: flex;
-    justify-content: space-between; /* Spaces out logo, nav, button */
-    align-items: center; /* Vertically aligns items */
-}
-
-
 /* --- Navigation Styling --- */
 nav {
-  /* Optional margin to space nav from logo/button */
-  margin: 0 15px;
+  margin: 0 15px; /* Spacing around nav */
 }
 
 nav ul {
-    display: flex;          /* Makes list items horizontal */
-    list-style: none;     /* Remove bullets */
-    margin: 0;            /* Remove default margin */
-    padding: 0;           /* Remove default padding */
-    gap: 5px;             /* Space between nav items (adjust value) */
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 5px;
 }
 
-nav ul li {
-    /* Usually no specific styles needed here with flexbox */
-}
-
-/* Styling for the links within the nav */
 nav ul li a {
-    display: block;         /* Important for padding */
-    padding: 12px 18px;   /* Size of the clickable area/tab */
-    color: #fff;          /* Text color (for dark header) */
-    text-decoration: none;/* Remove underline */
-    border-radius: 4px 4px 0 0; /* Optional: Slight curve on top */
+    display: block;
+    padding: 12px 18px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px 4px 0 0;
     transition: background-color 0.3s ease, color 0.3s ease;
-    white-space: nowrap;  /* Prevent links from wrapping to two lines */
+    white-space: nowrap;
 }
 
-/* Hover effect for nav links */
 nav ul li a:hover {
-    background-color: #555; /* Example hover background */
+    background-color: #555;
     color: #fff;
 }
 
-/* Active state for the current page's nav link */
-/* Assumes you use className='active' on NavLink */
 nav ul li a.active {
-    background-color: #0779e4; /* Active tab background color */
-    color: #fff; /* Active tab text color */
+    background-color: #0779e4;
+    color: #fff;
     font-weight: bold;
 }
 
-
 /* --- Call To Action Button Styling --- */
 .cta-btn {
-    background: #0779e4; /* Accent color */
+    background: #0779e4;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -103,49 +92,135 @@ nav ul li a.active {
     cursor: pointer;
     transition: background 0.3s ease;
     display: inline-block;
-    white-space: nowrap; /* Prevent button text wrapping */
+    white-space: nowrap;
 }
 
 .cta-btn:hover {
-    background: #045aab; /* Darker shade on hover */
+    background: #045aab;
 }
 
 /* --- Main Content Area --- */
 main {
     padding: 30px 0; /* Space above/below main content */
-    min-height: 70vh; /* Ensure footer is pushed down */
+    width: 100%; /* Ensure main takes full width */
 }
 
+/* Styles for the container WITHIN main */
 main .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
+    max-width: 1100px; /* Max width of main content */
+    margin: 0 auto; /* Center main content */
+    padding: 0 20px; /* Side padding for main content */
 }
 
 main h2 {
     margin-bottom: 20px;
-    color: #333; /* Heading color */
+    color: #333;
+}
+main h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+main hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+main ul {
+    list-style-position: inside; /* Indent bullets */
+    padding-left: 0; /* Reset padding if needed */
+}
+main li {
+    margin-bottom: 0.5rem;
+}
+main a {
+    color: #0779e4;
+    text-decoration: none;
+}
+main a:hover {
+    text-decoration: underline;
 }
 
-/* --- Footer Styling --- */
-footer {
-    background: #333; /* Match header background */
-    color: #aaa; /* Lighter text color for footer */
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 30px; /* Space above footer */
-    font-size: 0.9rem;
+
+/* --- Department Card Grid Styles --- */
+.department-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
 }
 
-footer .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
+.department-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
+.department-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
 
-/* --- Other Styles --- */
-/* Add your styles for .page-image, .gallery-grid etc. here */
+.department-card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.department-card-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.department-card-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.department-card-title a {
+  text-decoration: none;
+  color: #333;
+}
+
+.department-card-title a:hover {
+  color: #0779e4;
+}
+
+.department-card-description {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.department-card-button {
+  display: inline-block;
+  background-color: #0779e4;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: auto;
+  transition: background-color 0.3s ease;
+}
+
+.department-card-button:hover {
+  background-color: #045aab;
+}
+
+/* --- Other General Styles --- */
 .page-image {
   max-width: 100%;
   height: auto;
@@ -154,5 +229,22 @@ footer .container {
   display: block;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- Footer Styling --- */
+footer {
+    background: #333;
+    color: #aaa;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    font-size: 0.9rem;
+    width: 100%; /* Ensure footer takes full width */
+}
+
+footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
