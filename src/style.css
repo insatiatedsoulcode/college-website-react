@@ -20,9 +20,9 @@ header {
     padding: 0.75rem 0; /* Vertical padding for the header */
     border-bottom: 3px solid #0779e4; /* Accent border */
     width: 100%;
-    position: sticky;
+    position: sticky; /* Optional: Makes header stick on scroll */
     top: 0;
-    z-index: 100;
+    z-index: 100; /* Ensure header is above other content if sticky */
 }
 
 /* Container within Header (for padding) */
@@ -45,7 +45,7 @@ header .container {
 
 .header-logo {
   height: 90px; /* Adjust logo height */
-  width: auto;
+  width: 160px;
   vertical-align: middle;
 }
 
@@ -106,6 +106,147 @@ nav ul li a.active {
     transform: translateY(-2px);
 }
 
+/* Optional Secondary Button Style (used in Hero) */
+.cta-btn-secondary {
+    background: transparent;
+    color: #0779e4; /* Default color for secondary */
+    padding: 10px 23px; /* Adjust padding to align with primary */
+    border: 2px solid #0779e4; /* Border color */
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+    white-space: nowrap;
+    margin: 5px;
+}
+
+.cta-btn-secondary:hover {
+    background-color: #0779e4; /* Fill background on hover */
+    color: #fff; /* White text on hover */
+    transform: translateY(-2px);
+}
+
+/* Specific override for secondary button in hero if needed */
+.hero-buttons .cta-btn-secondary {
+    color: #fff; /* White text in hero */
+    border-color: #fff; /* White border in hero */
+}
+.hero-buttons .cta-btn-secondary:hover {
+    background-color: #fff;
+    color: #0779e4; /* Blue text on hover */
+}
+
+
+/* --- Hero Section Split Styles --- */
+.hero-section-split {
+  display: flex; /* Use flexbox for side-by-side columns */
+  width: 100%;
+  min-height: 500px; /* Adjust minimum height as needed */
+  background-color: #f0f0f0; /* Fallback background */
+  /* Handle wrapping on smaller screens */
+  flex-wrap: wrap; /* Allow columns to wrap */
+}
+
+.hero-left-column {
+  flex: 1 1 60%; /* Takes up ~60% of the width, can grow/shrink */
+  position: relative; /* For potential overlay content */
+  /* Add transition for background image change */
+  transition: background-image 1s ease-in-out; /* 1 second fade effect */
+  background-size: cover; /* Ensure these are set */
+  background-position: center;
+  min-height: 400px; /* Ensure minimum height when wrapped */
+}
+
+/* Add the class specifically for the slideshow background */
+.hero-slideshow {
+    /* Background image is set inline via style prop */
+}
+
+
+/* Optional overlay styles for left column */
+.hero-overlay-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+    padding: 15px;
+    border-radius: 5px;
+}
+.hero-overlay-content h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+
+.hero-right-column {
+  flex: 1 1 40%; /* Takes up ~40% of the width */
+  background-color: #fff8e1; /* Light yellow background - approximate */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center;
+  min-height: 400px; /* Ensure minimum height when wrapped */
+}
+
+.hero-inset-images {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Align images vertically */
+  gap: 15px; /* Space between images */
+  margin-bottom: 25px;
+  flex-wrap: wrap; /* Allow images to wrap if needed */
+}
+
+.hero-inset-images img {
+  max-width: 100px; /* Max width for inset images */
+  height: auto;
+  border: 3px solid white; /* White border like example */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  border-radius: 4px; /* Optional rounded corners */
+}
+
+.hero-inset-images img.founder-image {
+  max-width: 120px; /* Make founder image slightly larger */
+  border-radius: 50%; /* Make founder image round */
+  border-width: 4px;
+}
+
+.hero-quote-section {
+  margin-top: 20px;
+  font-style: italic;
+  color: #555; /* Darker text for quote */
+  max-width: 90%; /* Adjusted width */
+}
+
+.hero-quote-section blockquote {
+  margin-bottom: 10px;
+  font-size: 1.1rem; /* Slightly larger quote text */
+  line-height: 1.5;
+}
+
+.hero-quote-section cite {
+  font-size: 0.9rem;
+  font-style: normal;
+  color: #333;
+  font-weight: bold;
+}
+
+.hero-buttons {
+    margin-top: 30px;
+}
+/* Styles for buttons inside hero */
+.hero-cta {
+    margin: 10px 5px; /* Adjust margin */
+}
+
+
 /* --- Main Content Area --- */
 main {
     /* Removed padding: 30px 0; Rely on inner containers */
@@ -113,6 +254,7 @@ main {
 }
 
 /* General container class for padding/centering where needed */
+/* Use this class within sections below the hero */
 .container {
     /* max-width: 1100px; */ /* REMOVED for full width */
     /* margin: 0 auto; */    /* REMOVED for full width */
@@ -122,14 +264,14 @@ main {
 /* Specific padding for containers within main if needed */
 main .container {
     /* Add top/bottom padding here if desired for all main content */
-    /* padding-top: 30px; */
-    /* padding-bottom: 30px; */
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 
 main h2 {
     font-size: 2rem;
-    margin-bottom: 20px; /* Keep space below H2 */
+    margin-bottom: 20px;
     color: #333;
 }
 main h3 {
@@ -177,7 +319,6 @@ main a:hover {
   transition: opacity 1s ease-in-out; /* 1 second fade */
 }
 
-/* Simple fade effect */
 .about-slideshow-image.fade-exit {
     opacity: 0;
 }

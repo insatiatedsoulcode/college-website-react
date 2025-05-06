@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 // 1. Import LARGER images for each department (use actual filenames)
 //    These should be suitable for card backgrounds or main visuals.
-import compSciImage from '../assets/images/dept-cs-card.jpg'; // Example placeholder - needs larger image
-import artsImage from '../assets/images/dept-arts-card.jpg'; // Example placeholder - needs larger image
-import businessImage from '../assets/images/dept-business-card.jpg'; // Example placeholder - needs larger image
+import compSciImage from '../assets/images/dept-cs-card.JPG'; // Example placeholder - needs larger image
+import artsImage from '../assets/images/dept-arts-card.JPG'; // Example placeholder - needs larger image
+import businessImage from '../assets/images/dept-business-card.JPG'; // Example placeholder - needs larger image
 // Import other images as needed
 
 function AcademicsPage() {
