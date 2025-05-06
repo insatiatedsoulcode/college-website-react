@@ -1,9 +1,6 @@
 // src/pages/StudentLifePage.js
 import React from 'react';
 
-// Optional: Import images if you have them ready
-// import studentGroupPhoto from '../assets/images/student-group.jpg';
-// import campusEventPhoto from '../assets/images/campus-event.jpg';
 
 function StudentLifePage() {
   // This is the main function defining the component.

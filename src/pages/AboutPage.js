@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // Keep the imported images
-import img1 from '../assets/images/campus-event.JPG';
+import img1 from '../assets/images/1.JPG';
 import img2 from '../assets/images/CDKJ9333.JPG';
 import img3 from '../assets/images/check.jpg';
 import img4 from '../assets/images/CIKY9429.JPG';
