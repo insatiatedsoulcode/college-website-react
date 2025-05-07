@@ -46,7 +46,7 @@ function AboutPage() {
       {/* Heading remains within the overall page flow */}
       {/* We apply container padding manually if needed, or rely on main .container padding */}
       <div className="container" style={{ paddingBottom: '0' }}> {/* Use container for heading padding */}
-         <h2>About Your College Name</h2>
+         <h2>Uday Pratap College</h2>
       </div>
 
       {/* Slideshow Container - Placed OUTSIDE the inner .container for full width */}
@@ -62,7 +62,7 @@ function AboutPage() {
       {/* Wrap the rest of the content in a container for padding */}
       <div className="container" style={{ paddingTop: '25px' }}> {/* Add padding above content */}
         <p style={{ fontStyle: 'italic', marginBottom: '20px' }}>
-          Welcome to Your College Name, where tradition meets innovation to shape future leaders.
+          Welcome to Uday Pratap College, where tradition meets innovation to shape future leaders.
         </p>
 
         <h3>Our Mission & Vision</h3>
