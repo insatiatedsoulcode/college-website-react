@@ -1,22 +1,19 @@
 // src/components/InquiryForm.js
 import React, { useState } from 'react';
-// If you have specific styles for the form inputs/buttons beyond Tailwind,
-// you can create an InquiryForm.css and import it.
-// import './InquiryForm.css';
+import collegeLogo from '../assets/images/logo.png'; // Adjust path if necessary
 
-import collegeLogo from '../assets/images/logo.png'; // Adjust path and filename
-// ... other imports
-
-const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
+const InquiryForm = ({ onSuccess }) => {
+    // Updated to use 'name' instead of 'fullName' to match backend
     const [formData, setFormData] = useState({
-        fullName: '',
+        name: '', // Changed from fullName
         email: '',
-        phone: '',
+        phone: '', // Optional, backend doesn't currently store this but doesn't hurt to send
         subject: '',
         message: '',
     });
 
     const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false); // For loading state
     const [submissionStatus, setSubmissionStatus] = useState({
         submitted: false,
         message: '',
@@ -26,11 +23,9 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-        // Clear error for the field being edited
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: '' }));
         }
-        // Clear submission message on new input
         if (submissionStatus.submitted) {
             setSubmissionStatus({ submitted: false, message: '', type: '' });
         }
@@ -40,8 +35,9 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
         let tempErrors = {};
         let isValid = true;
 
-        if (!formData.fullName.trim()) {
-            tempErrors.fullName = 'Full name is required.';
+        // Changed validation to use formData.name
+        if (!formData.name.trim()) {
+            tempErrors.name = 'Full name is required.';
             isValid = false;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -49,7 +45,8 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
             tempErrors.email = 'Please enter a valid email address.';
             isValid = false;
         }
-        const phoneRegex = /^[+\d\s-]{7,15}$/;
+        // Phone validation remains, though backend doesn't strictly require/store it yet
+        const phoneRegex = /^[+\d\s-()]{7,20}$/; // Adjusted regex for more flexibility
         if (formData.phone.trim() && !phoneRegex.test(formData.phone)) {
             tempErrors.phone = 'Please enter a valid phone number.';
             isValid = false;
@@ -66,20 +63,70 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
         return isValid;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmissionStatus({ submitted: false, message: '', type: '' }); // Clear previous status
+
         if (validateForm()) {
-            // Simulate API call
-            console.log('Form Data Submitted:', formData);
-            setSubmissionStatus({
-                submitted: true,
-                message: 'Thank you! Your inquiry has been submitted successfully. We will get back to you soon.',
-                type: 'success'
-            });
-            setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' }); // Reset form
-            setErrors({});
-            if (onSuccess) { // Call onSuccess if provided (e.g., to close modal)
-                setTimeout(onSuccess, 2000); // Close modal after 2 seconds
+            setIsSubmitting(true);
+
+            // Prepare data for the backend (ensure 'name' field is used)
+            const dataToSend = {
+                name: formData.name, // Ensure this matches backend expectation
+                email: formData.email,
+                subject: formData.subject,
+                message: formData.message,
+                // phone: formData.phone, // You can include phone if backend is updated to handle it
+            };
+
+            try {
+                const response = await fetch('http://localhost:3001/api/send-enquiry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSend),
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    setSubmissionStatus({
+                        submitted: true,
+                        message: result.message || 'Thank you! Your inquiry has been submitted successfully.',
+                        type: 'success'
+                    });
+                    setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Reset form
+                    setErrors({});
+                    if (onSuccess) {
+                        setTimeout(onSuccess, 2000); // Call onSuccess (e.g., close modal)
+                    }
+                } else {
+                    // Handle backend errors (e.g., validation errors from server, server issues)
+                    let errorMessage = result.message || 'An error occurred. Please try again.';
+                    if (result.errors) { // If backend sends specific field errors
+                        let fieldErrorMessages = Object.values(result.errors).join(' ');
+                        errorMessage = `${errorMessage} ${fieldErrorMessages}`;
+                    }
+                    setSubmissionStatus({
+                        submitted: true,
+                        message: errorMessage,
+                        type: 'error'
+                    });
+                    // Optionally, set backend validation errors to the form
+                    if (result.errors) {
+                        setErrors(prev => ({ ...prev, ...result.errors }));
+                    }
+                }
+            } catch (error) {
+                console.error('Form submission network error:', error);
+                setSubmissionStatus({
+                    submitted: true,
+                    message: 'A network error occurred. Please check your connection and try again.',
+                    type: 'error'
+                });
+            } finally {
+                setIsSubmitting(false);
             }
         } else {
             setSubmissionStatus({
@@ -90,38 +137,38 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
         }
     };
 
-    // Tailwind classes for inputs and textareas (can be refactored into a constant)
     const inputClass = "form-input block w-full px-3 py-2 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out sm:text-sm";
     const errorTextClass = "text-red-500 text-xs mt-1";
 
     return (
-        <div> {/* Wrapper for the form content */}
-            {/* Ensure all 'class' attributes are 'className' and <img> is self-closed '/>' */}
+        <div>
             <div className="text-center mb-6">
                 <img
                     src={collegeLogo}
                     alt="Uday Pratap College Logo"
                     className="mx-auto h-16 w-16 rounded-full mb-3 object-cover shadow-sm"
-                /> {/* Crucial: Self-closing tag for <img> */}
+                />
                 <h1 className="text-2xl sm:text-3xl font-bold text-indigo-700">Uday Pratap College</h1>
                 <p className="text-slate-600 mt-1 text-md">Inquiry Form</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 mb-1">
+                    {/* Changed htmlFor, name, id, value, and errors to use 'name' */}
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
                         Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
                         type="text"
-                        name="fullName"
-                        id="fullName"
-                        value={formData.fullName}
+                        name="name"
+                        id="name"
+                        value={formData.name}
                         onChange={handleChange}
-                        className={`${inputClass} ${errors.fullName ? 'border-red-500' : 'border-slate-300'}`}
+                        className={`${inputClass} ${errors.name ? 'border-red-500' : 'border-slate-300'}`}
                         placeholder="e.g., John Doe"
+                        disabled={isSubmitting}
                     />
-                    {errors.fullName && <p className={errorTextClass}>{errors.fullName}</p>}
+                    {errors.name && <p className={errorTextClass}>{errors.name}</p>}
                 </div>
 
                 <div>
@@ -136,6 +183,7 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
                         onChange={handleChange}
                         className={`${inputClass} ${errors.email ? 'border-red-500' : 'border-slate-300'}`}
                         placeholder="you@example.com"
+                        disabled={isSubmitting}
                     />
                     {errors.email && <p className={errorTextClass}>{errors.email}</p>}
                 </div>
@@ -152,6 +200,7 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
                         onChange={handleChange}
                         className={`${inputClass} ${errors.phone ? 'border-red-500' : 'border-slate-300'}`}
                         placeholder="+91 XXXXX XXXXX"
+                        disabled={isSubmitting}
                     />
                     {errors.phone && <p className={errorTextClass}>{errors.phone}</p>}
                 </div>
@@ -168,6 +217,7 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
                         onChange={handleChange}
                         className={`${inputClass} ${errors.subject ? 'border-red-500' : 'border-slate-300'}`}
                         placeholder="e.g., Admission Inquiry"
+                        disabled={isSubmitting}
                     />
                     {errors.subject && <p className={errorTextClass}>{errors.subject}</p>}
                 </div>
@@ -182,8 +232,9 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
                         rows="4"
                         value={formData.message}
                         onChange={handleChange}
-                        className={`${inputClass} ${errors.message ? 'border-red-500' : 'border-slate-300'}`} // form-textarea equivalent
+                        className={`${inputClass} ${errors.message ? 'border-red-500' : 'border-slate-300'}`}
                         placeholder="Please type your inquiry here..."
+                        disabled={isSubmitting}
                     />
                     {errors.message && <p className={errorTextClass}>{errors.message}</p>}
                 </div>
@@ -191,14 +242,15 @@ const InquiryForm = ({ onSuccess }) => { // Added onSuccess prop
                 <div>
                     <button
                         type="submit"
-                        className="btn-submit w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+                        disabled={isSubmitting}
+                        className="btn-submit w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Submit Inquiry
+                        {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
                     </button>
                 </div>
             </form>
 
-            {submissionStatus.submitted && (
+            {submissionStatus.submitted && submissionStatus.message && ( // Only show if there's a message
                 <div
                     className={`mt-4 p-4 rounded-md font-medium text-sm ${submissionStatus.type === 'success' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
                 >
