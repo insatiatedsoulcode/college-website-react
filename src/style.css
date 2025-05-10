@@ -1,6 +1,22 @@
 /* src/style.css */
 
 /* --- General Styles --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your other global styles, like body.modal-open-react, can go below these */
+body {
+  font-family: 'Inter', sans-serif; /* Example global font */
+}
+
+body.modal-open-react {
+  overflow: hidden;
+}
+.App {
+  text-align: center;
+}
+
 * {
     margin: 0;
     padding: 0;
