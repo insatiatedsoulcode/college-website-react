@@ -1,0 +1,29 @@
+# Node.js
+## Folders
+node_modules/
+npm-debug.log*
+*.log
+logs
+*.lock
+
+## Environment Variables
+.env
+.env.*
+!.env.example
+
+## Operating System Files
+.DS_Store
+Thumbs.db
+
+## Build Output
+dist/
+build/
+
+## Optional - IDE specific files
+# Visual Studio Code
+.vscode/
+# JetBrains
+.idea/
+
+# Optional - Test coverage
+coverage/
