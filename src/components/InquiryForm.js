@@ -80,7 +80,7 @@ const InquiryForm = ({ onSuccess }) => {
             };
 
             try {
-                const response = await fetch('http://localhost:3001/api/send-enquiry', {
+                const response = await fetch('backend-correct-nwef7tx3n-deepak-singhs-projects-c0fb9bb8.vercel.app', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
