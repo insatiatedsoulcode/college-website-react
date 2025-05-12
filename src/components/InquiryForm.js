@@ -80,7 +80,9 @@ const InquiryForm = ({ onSuccess }) => {
             };
 
             try {
-                const response = await fetch('backend-correct-nwef7tx3n-deepak-singhs-projects-c0fb9bb8.vercel.app', {
+               // Example in InquiryForm.js (updated for deployed backend)
+               const response = await fetch('https://backend-correct.vercel.app/api/send-enquiry', { /* ... */ });
+               , {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
