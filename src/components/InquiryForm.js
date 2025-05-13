@@ -3,17 +3,16 @@ import React, { useState } from 'react';
 import collegeLogo from '../assets/images/logo.png'; // Adjust path if necessary
 
 const InquiryForm = ({ onSuccess }) => {
-    // Updated to use 'name' instead of 'fullName' to match backend
     const [formData, setFormData] = useState({
-        name: '', // Changed from fullName
+        name: '',
         email: '',
-        phone: '', // Optional, backend doesn't currently store this but doesn't hurt to send
+        phone: '',
         subject: '',
         message: '',
     });
 
     const [errors, setErrors] = useState({});
-    const [isSubmitting, setIsSubmitting] = useState(false); // For loading state
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionStatus, setSubmissionStatus] = useState({
         submitted: false,
         message: '',
@@ -35,7 +34,6 @@ const InquiryForm = ({ onSuccess }) => {
         let tempErrors = {};
         let isValid = true;
 
-        // Changed validation to use formData.name
         if (!formData.name.trim()) {
             tempErrors.name = 'Full name is required.';
             isValid = false;
@@ -45,8 +43,7 @@ const InquiryForm = ({ onSuccess }) => {
             tempErrors.email = 'Please enter a valid email address.';
             isValid = false;
         }
-        // Phone validation remains, though backend doesn't strictly require/store it yet
-        const phoneRegex = /^[+\d\s-()]{7,20}$/; // Adjusted regex for more flexibility
+        const phoneRegex = /^[+\d\s-()]{7,20}$/;
         if (formData.phone.trim() && !phoneRegex.test(formData.phone)) {
             tempErrors.phone = 'Please enter a valid phone number.';
             isValid = false;
@@ -63,6 +60,7 @@ const InquiryForm = ({ onSuccess }) => {
         return isValid;
     };
 
+    // CORRECTED handleSubmit function
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmissionStatus({ submitted: false, message: '', type: '' }); // Clear previous status
@@ -70,25 +68,32 @@ const InquiryForm = ({ onSuccess }) => {
         if (validateForm()) {
             setIsSubmitting(true);
 
-            // Prepare data for the backend (ensure 'name' field is used)
             const dataToSend = {
-                name: formData.name, // Ensure this matches backend expectation
+                name: formData.name,
                 email: formData.email,
                 subject: formData.subject,
                 message: formData.message,
-                // phone: formData.phone, // You can include phone if backend is updated to handle it
             };
 
+            // Use environment variable for API URL
+            // For local development, set REACT_APP_API_URL=http://localhost:3001 in your frontend's .env file
+            // For Vercel deployment, set REACT_APP_API_URL in Vercel's environment variable settings
+            // to your deployed backend URL (e.g., https://backend-correct.vercel.app)
+            const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001'; // Fallback for safety
+            const ENQUIRY_ENDPOINT = `${API_BASE_URL}/api/send-enquiry`;
+
+
             try {
-               // Example in InquiryForm.js (updated for deployed backend)
-               const response = await fetch('https://backend-correct.vercel.app/api/send-enquiry', { /* ... */ });
-               , {
+                const response = await fetch(ENQUIRY_ENDPOINT, { // The options object starts here
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(dataToSend),
-                });
+                }); // The options object and the fetch call end here
+
+                // No stray comma or object after this line for the fetch call.
+                // The next part is handling the response.
 
                 const result = await response.json();
 
@@ -98,15 +103,14 @@ const InquiryForm = ({ onSuccess }) => {
                         message: result.message || 'Thank you! Your inquiry has been submitted successfully.',
                         type: 'success'
                     });
-                    setFormData({ name: '', email: '', phone: '', subject: '', message: '' }); // Reset form
+                    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
                     setErrors({});
                     if (onSuccess) {
-                        setTimeout(onSuccess, 2000); // Call onSuccess (e.g., close modal)
+                        setTimeout(onSuccess, 2000);
                     }
                 } else {
-                    // Handle backend errors (e.g., validation errors from server, server issues)
                     let errorMessage = result.message || 'An error occurred. Please try again.';
-                    if (result.errors) { // If backend sends specific field errors
+                    if (result.errors) {
                         let fieldErrorMessages = Object.values(result.errors).join(' ');
                         errorMessage = `${errorMessage} ${fieldErrorMessages}`;
                     }
@@ -115,7 +119,6 @@ const InquiryForm = ({ onSuccess }) => {
                         message: errorMessage,
                         type: 'error'
                     });
-                    // Optionally, set backend validation errors to the form
                     if (result.errors) {
                         setErrors(prev => ({ ...prev, ...result.errors }));
                     }
@@ -156,7 +159,6 @@ const InquiryForm = ({ onSuccess }) => {
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                    {/* Changed htmlFor, name, id, value, and errors to use 'name' */}
                     <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
                         Full Name <span className="text-red-500">*</span>
                     </label>
@@ -252,7 +254,7 @@ const InquiryForm = ({ onSuccess }) => {
                 </div>
             </form>
 
-            {submissionStatus.submitted && submissionStatus.message && ( // Only show if there's a message
+            {submissionStatus.submitted && submissionStatus.message && (
                 <div
                     className={`mt-4 p-4 rounded-md font-medium text-sm ${submissionStatus.type === 'success' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
                 >
