@@ -14,6 +14,7 @@ import StudentLifePage from './pages/StudentLifePage';
 import ContactPage from './pages/ContactPage';
 import ComputerSciencePage from './pages/ComputerSciencePage';
 import NotFoundPage from './pages/NotFoundPage'; // Assuming you have this
+import ArtsHumanitiesPage from './pages/ArtsHumanitiesPage';
 
 import './style.css';
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="academics" element={<AcademicsPage />} />
           <Route path="academics/computer-science" element={<ComputerSciencePage />} />
+          <Route path="/academics/arts-humanities" element={<ArtsHumanitiesPage />} />
           {/* Add routes for other departments similarly */}
           {/* <Route path="academics/arts-humanities" element={<ArtsPage />} /> */}
           {/* <Route path="academics/business-administration" element={<BusinessPage />} /> */}
