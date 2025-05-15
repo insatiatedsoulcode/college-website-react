@@ -79,7 +79,7 @@ const InquiryForm = ({ onSuccess }) => {
             // For local development, set REACT_APP_API_URL=http://localhost:3001 in your frontend's .env file
             // For Vercel deployment, set REACT_APP_API_URL in Vercel's environment variable settings
             // to your deployed backend URL (e.g., https://backend-correct.vercel.app)
-            const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001'; // Fallback for safety
+            const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://my-university-api.onrender.com'; // Fallback for safety
             const ENQUIRY_ENDPOINT = `${API_BASE_URL}/api/send-enquiry`;
 
 
