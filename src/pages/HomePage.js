@@ -105,7 +105,7 @@ function HomePage() {
            </div>
             <div className="hero-buttons">
                 <Link to="/admissions" className="cta-btn hero-cta">Apply Now</Link>
-                <Link to="/academics" className="cta-btn-secondary hero-cta">Explore Programs</Link>
+                <Link to="/academics" className="cta-btn hero-cta">Explore Programs</Link>
             </div>
         </div>
       </div> {/* End of hero-section-split */}
