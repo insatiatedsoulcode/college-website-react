@@ -8,6 +8,9 @@
 /* Your other global styles, like body.modal-open-react, can go below these */
 body {
   font-family: 'Inter', sans-serif; /* Example global font */
+  /* Add overflow-x: hidden; to prevent horizontal scrollbars if negative margins cause issues,
+     though calc(100% + ...) should ideally manage this within a padded parent. */
+  overflow-x: hidden;
 }
 
 body.modal-open-react {
@@ -158,27 +161,31 @@ nav ul li a.active {
 
 /* --- Hero Section Split Styles --- */
 .hero-section-split {
-  display: flex; /* Use flexbox for side-by-side columns */
-  width: 100%;
+  display: flex;
+  /* Assuming parent .container has 'padding: 0 20px;' */
+  /* To make it full-bleed: */
+  width: calc(100% + 40px); /* Span the parent's width + its padding (20px left + 20px right) */
+  margin-left: -20px;    /* Pull left to cover parent's left padding */
+  margin-right: -20px;   /* Pull right to cover parent's right padding */
+  /* End of full-bleed adjustments */
   min-height: 500px; /* Adjust minimum height as needed */
-  background-color: #f0f0f0; /* Fallback background */
-  /* Handle wrapping on smaller screens */
-  flex-wrap: wrap; /* Allow columns to wrap */
+  background-color: #f0f0f0; /* Fallback background, usually covered by columns */
+  flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+  position: relative; /* Needed for absolute positioning of arrow buttons if they are children of this */
 }
 
 .hero-left-column {
   flex: 1 1 60%; /* Takes up ~60% of the width, can grow/shrink */
-  position: relative; /* For potential overlay content */
-  /* Add transition for background image change */
+  position: relative; /* For potential overlay content AND arrow buttons */
   transition: background-image 1s ease-in-out; /* 1 second fade effect */
-  background-size: cover; /* Ensure these are set */
+  background-size: cover;
   background-position: center;
   min-height: 400px; /* Ensure minimum height when wrapped */
 }
 
 /* Add the class specifically for the slideshow background */
 .hero-slideshow {
-    /* Background image is set inline via style prop */
+    /* Background image is set inline via style prop in HomePage.js */
 }
 
 
@@ -186,9 +193,9 @@ nav ul li a.active {
 .hero-overlay-content {
     position: absolute;
     bottom: 20px;
-    left: 20px;
+    left: 20px; /* Will be 20px from the true screen edge now */
     color: white;
-    z-index: 2;
+    z-index: 2; /* Ensure it's above the image but below arrows if arrows are outside */
     background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
     padding: 15px;
     border-radius: 5px;
@@ -200,9 +207,9 @@ nav ul li a.active {
 
 
 .hero-right-column {
-  flex: 1 1 40%; /* Takes up ~40% of the width */
+  flex: 1 1 100%; /* Takes up ~40% of the width */
   background-color: #fff8e1; /* Light yellow background - approximate */
-  padding: 30px;
+  padding: 30px; /* Internal padding for the content of this column */
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center content vertically */
@@ -210,6 +217,42 @@ nav ul li a.active {
   text-align: center;
   min-height: 400px; /* Ensure minimum height when wrapped */
 }
+
+/* --- Slideshow Arrow Button Styles --- */
+.slideshow-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  color: white;
+  border: none;
+  padding: 10px 15px; /* Adjust padding as needed */
+  font-size: 24px; /* Adjust size of arrow character */
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10; /* Ensure arrows are above the slideshow images */
+  border-radius: 50%; /* Make them circular */
+  width: 50px; /* Fixed width */
+  height: 50px; /* Fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.slideshow-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slideshow-arrow.prev {
+  left: 15px; /* Position from the left edge of .hero-left-column */
+}
+
+.slideshow-arrow.next {
+  right: 15px; /* Position from the right edge of .hero-left-column */
+}
+/* End of Slideshow Arrow Button Styles --- */
+
 
 .hero-inset-images {
   display: flex;
@@ -238,7 +281,7 @@ nav ul li a.active {
   margin-top: 20px;
   font-style: italic;
   color: #555; /* Darker text for quote */
-  max-width: 90%; /* Adjusted width */
+  max-width: 90%; /* Adjusted width within its column */
 }
 
 .hero-quote-section blockquote {
@@ -274,14 +317,14 @@ main {
 .container {
     /* max-width: 1100px; */ /* REMOVED for full width */
     /* margin: 0 auto; */    /* REMOVED for full width */
-    padding: 0 20px; /* Side padding */
+    padding: 0 20px; /* Side padding - this creates the space that hero-section-split breaks out of */
 }
 
 /* Specific padding for containers within main if needed */
 main .container {
     /* Add top/bottom padding here if desired for all main content */
     padding-top: 30px;
-    padding-bottom: 0px;
+    padding-bottom: 30px;
 }
 
 
@@ -317,8 +360,13 @@ main a:hover {
 }
 
 /* --- About Page Slideshow Styles (Full Width) --- */
+/* If this also needs to be full-bleed like the hero, apply similar negative margins */
 .about-slideshow-container {
-  width: 100%; /* Take full width */
+  width: 100%; /* Take full width of its parent. If parent is .container, add negative margins too. */
+  /* Example if it's inside a .container with padding: 0 20px; */
+  /* width: calc(100% + 40px); */
+  /* margin-left: -20px;    */
+  /* margin-right: -20px;   */
   height: 450px; /* Set a fixed height - ADJUST AS NEEDED */
   margin-bottom: 25px; /* Space below */
   overflow: hidden;
