@@ -281,7 +281,7 @@ main {
 main .container {
     /* Add top/bottom padding here if desired for all main content */
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 0px;
 }
 
 
