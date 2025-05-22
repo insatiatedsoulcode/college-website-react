@@ -164,23 +164,24 @@ nav ul li a.active {
   display: flex;
   /* Assuming parent .container has 'padding: 0 20px;' */
   /* To make it full-bleed: */
-  width: calc(100% + 40px); /* Span the parent's width + its padding (20px left + 20px right) */
+  width: calc(100% + 175px); /* Span the parent's width + its padding (20px left + 20px right) */
   margin-left: -20px;    /* Pull left to cover parent's left padding */
   margin-right: -20px;   /* Pull right to cover parent's right padding */
   /* End of full-bleed adjustments */
-  min-height: 500px; /* Adjust minimum height as needed */
+  min-height: 400px; /* Adjust minimum height as needed */
   background-color: #f0f0f0; /* Fallback background, usually covered by columns */
   flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
   position: relative; /* Needed for absolute positioning of arrow buttons if they are children of this */
 }
 
 .hero-left-column {
-  flex: 1 1 60%; /* Takes up ~60% of the width, can grow/shrink */
+  flex: 1 1 100%; /* Takes up ~60% of the width, can grow/shrink */
   position: relative; /* For potential overlay content AND arrow buttons */
   transition: background-image 1s ease-in-out; /* 1 second fade effect */
   background-size: cover;
   background-position: center;
   min-height: 400px; /* Ensure minimum height when wrapped */
+  border: 2px solid black; /* <<< ADDED BLACK BORDER, adjust thickness (2px) as needed */
 }
 
 /* Add the class specifically for the slideshow background */
