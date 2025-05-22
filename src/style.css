@@ -8,9 +8,7 @@
 /* Your other global styles, like body.modal-open-react, can go below these */
 body {
   font-family: 'Inter', sans-serif; /* Example global font */
-  /* Add overflow-x: hidden; to prevent horizontal scrollbars if negative margins cause issues,
-     though calc(100% + ...) should ideally manage this within a padded parent. */
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent horizontal scrollbars from full-bleed sections */
 }
 
 body.modal-open-react {
@@ -41,13 +39,11 @@ header {
     width: 100%;
     position: sticky; /* Optional: Makes header stick on scroll */
     top: 0;
-    z-index: 100; /* Ensure header is above other content if sticky */
+    z-index: 1000; /* Ensure header is above other content if sticky, higher z-index */
 }
 
 /* Container within Header (for padding) */
 header .container {
-    /* max-width: 1100px; */ /* REMOVED for full width */
-    /* margin: 0 auto; */    /* REMOVED for full width */
     padding: 0 20px; /* Keep side padding for spacing from edge */
     display: flex;
     justify-content: space-between; /* Keeps button to the right */
@@ -101,6 +97,51 @@ nav ul li a.active {
     color: #fff;
     font-weight: bold;
 }
+
+/* --- Notification Ticker Styles --- */
+.notification-ticker-container {
+  background-color: #fff8e1; /* Light yellow, similar to hero right column */
+  color: #333; /* Dark text for readability */
+  padding: 8px 0; /* Vertical padding */
+  width: 100%;
+  overflow: hidden; /* Important for the scrolling effect */
+  border-bottom: 1px solid #e0e0e0; /* Optional subtle border */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional subtle shadow */
+}
+
+.notification-ticker {
+  display: inline-block; /* Allows animation of transform */
+  white-space: nowrap; /* Keeps all items in a single line */
+  padding-left: 100%; /* Start the ticker off-screen to the right */
+  animation: ticker-scroll 30s linear infinite; /* Adjust duration for speed */
+}
+
+.notification-ticker span {
+  display: inline-block;
+  padding: 0 25px; /* Spacing between notification items */
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.notification-ticker span a {
+  color: #0779e4; /* Link color */
+  text-decoration: none;
+}
+.notification-ticker span a:hover {
+  text-decoration: underline;
+}
+
+/* Keyframes for the scrolling animation */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* Scroll to the left until it's off-screen */
+  }
+}
+/* --- End of Notification Ticker Styles --- */
+
 
 /* --- Call To Action Button Styling --- */
 .cta-btn {
@@ -168,10 +209,10 @@ nav ul li a.active {
   margin-left: -20px;    /* Pull left to cover parent's left padding */
   margin-right: -20px;   /* Pull right to cover parent's right padding */
   /* End of full-bleed adjustments */
-  min-height: 400px; /* Adjust minimum height as needed */
+  min-height: 500px; /* Adjust minimum height as needed */
   background-color: #f0f0f0; /* Fallback background, usually covered by columns */
   flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
-  position: relative; /* Needed for absolute positioning of arrow buttons if they are children of this */
+  position: relative;
 }
 
 .hero-left-column {
@@ -181,23 +222,41 @@ nav ul li a.active {
   background-size: cover;
   background-position: center;
   min-height: 400px; /* Ensure minimum height when wrapped */
-  border: 2px solid black; /* <<< ADDED BLACK BORDER, adjust thickness (2px) as needed */
+  border: 3px solid black; /* Black border around the slideshow */
+  /* box-sizing: border-box; /* Ensures border doesn't add to the width/height affecting flex calculations */
 }
 
-/* Add the class specifically for the slideshow background */
-.hero-slideshow {
-    /* Background image is set inline via style prop in HomePage.js */
+/* .hero-slideshow class is used in JS but might not need separate styles if .hero-left-column covers all */
+
+
+/* --- Slideshow College Name Overlay --- */
+.slideshow-college-name {
+  position: absolute;
+  top: 20px; /* Adjust as needed for spacing from the top */
+  left: 50%;
+  transform: translateX(-50%); /* Center the text block */
+  background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent black background */
+  color: white;
+  padding: 8px 18px; /* Padding around the text */
+  border-radius: 5px; /* Optional rounded corners */
+  font-size: 1.6rem; /* Adjust font size as needed */
+  font-weight: bold;
+  text-align: center;
+  z-index: 5; /* Ensure it's above the image, but potentially below arrows if they overlap */
+  white-space: nowrap; /* Prevent text from wrapping if it's short */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Slight text shadow for readability */
 }
+/* End of Slideshow College Name Overlay --- */
 
 
-/* Optional overlay styles for left column */
+/* Optional overlay styles for left column (if different from college name) */
 .hero-overlay-content {
     position: absolute;
     bottom: 20px;
     left: 20px; /* Will be 20px from the true screen edge now */
     color: white;
-    z-index: 2; /* Ensure it's above the image but below arrows if arrows are outside */
-    background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+    z-index: 2;
+    background-color: rgba(0,0,0,0.5);
     padding: 15px;
     border-radius: 5px;
 }
@@ -208,7 +267,7 @@ nav ul li a.active {
 
 
 .hero-right-column {
-  flex: 1 1 100%; /* Takes up ~40% of the width */
+  flex: 1 1 40%; /* Takes up ~40% of the width */
   background-color: #fff8e1; /* Light yellow background - approximate */
   padding: 30px; /* Internal padding for the content of this column */
   display: flex;
@@ -224,33 +283,34 @@ nav ul li a.active {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.35); /* Slightly more subtle background */
   color: white;
   border: none;
-  padding: 10px 15px; /* Adjust padding as needed */
-  font-size: 24px; /* Adjust size of arrow character */
+  /* padding: 10px 15px; */ /* Using fixed width/height now */
+  font-size: 28px; /* Adjust size of arrow character */
   font-weight: bold;
   cursor: pointer;
-  z-index: 10; /* Ensure arrows are above the slideshow images */
+  z-index: 10; /* Ensure arrows are above the slideshow images and college name */
   border-radius: 50%; /* Make them circular */
-  width: 50px; /* Fixed width */
-  height: 50px; /* Fixed height */
+  width: 48px; /* Fixed width */
+  height: 48px; /* Fixed height */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
+  line-height: 1; /* Helps center the arrow character */
 }
 
 .slideshow-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .slideshow-arrow.prev {
-  left: 15px; /* Position from the left edge of .hero-left-column */
+  left: 20px; /* Position from the left edge of .hero-left-column, increased for visibility */
 }
 
 .slideshow-arrow.next {
-  right: 15px; /* Position from the right edge of .hero-left-column */
+  right: 20px; /* Position from the right edge of .hero-left-column, increased for visibility */
 }
 /* End of Slideshow Arrow Button Styles --- */
 
@@ -309,21 +369,16 @@ nav ul li a.active {
 
 /* --- Main Content Area --- */
 main {
-    /* Removed padding: 30px 0; Rely on inner containers */
     width: 100%;
 }
 
 /* General container class for padding/centering where needed */
-/* Use this class within sections below the hero */
 .container {
-    /* max-width: 1100px; */ /* REMOVED for full width */
-    /* margin: 0 auto; */    /* REMOVED for full width */
     padding: 0 20px; /* Side padding - this creates the space that hero-section-split breaks out of */
 }
 
 /* Specific padding for containers within main if needed */
 main .container {
-    /* Add top/bottom padding here if desired for all main content */
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -361,27 +416,26 @@ main a:hover {
 }
 
 /* --- About Page Slideshow Styles (Full Width) --- */
-/* If this also needs to be full-bleed like the hero, apply similar negative margins */
 .about-slideshow-container {
-  width: 100%; /* Take full width of its parent. If parent is .container, add negative margins too. */
-  /* Example if it's inside a .container with padding: 0 20px; */
+  width: 100%;
+  /* If inside a .container with padding: 0 20px;, add these for full-bleed: */
   /* width: calc(100% + 40px); */
   /* margin-left: -20px;    */
   /* margin-right: -20px;   */
-  height: 450px; /* Set a fixed height - ADJUST AS NEEDED */
-  margin-bottom: 25px; /* Space below */
+  height: 450px;
+  margin-bottom: 25px;
   overflow: hidden;
   position: relative;
-  background-color: #f0f0f0; /* Fallback background */
+  background-color: #f0f0f0;
 }
 
 .about-slideshow-image {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Cover the area, cropping if needed */
+  object-fit: cover;
   opacity: 1;
-  transition: opacity 1s ease-in-out; /* 1 second fade */
+  transition: opacity 1s ease-in-out;
 }
 
 .about-slideshow-image.fade-exit {
@@ -390,7 +444,6 @@ main a:hover {
 
 
 /* --- Department Card Grid Styles --- */
-/* These should be placed within a .container div in their respective page */
 .department-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -483,7 +536,5 @@ footer {
 }
 
 footer .container {
-    /* max-width: 1100px; */ /* REMOVED for full width */
-    /* margin: 0 auto; */    /* REMOVED for full width */
     padding: 0 20px; /* Keep side padding */
 }

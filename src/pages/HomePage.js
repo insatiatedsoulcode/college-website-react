@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // --- Import Modal and Form Components ---
 import Modal from '../components/Modal'; // Adjust path if your components folder is elsewhere
 import InquiryForm from '../components/InquiryForm'; // Adjust path
+import NotificationTicker from '../components/NotificationTicker'; // Corrected path
 
 // --- Import Images ---
 import slideImage1 from '../assets/images/campus-slide-1.JPG';
@@ -68,6 +69,7 @@ function HomePage() {
 
   return (
     <div>
+    <NotificationTicker />
       <div className="hero-section-split">
         <div
           className="hero-left-column hero-slideshow" // hero-slideshow class might not be needed if all styles are on hero-left-column
