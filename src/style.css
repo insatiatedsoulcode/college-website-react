@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden; /* Prevent horizontal scrollbars from full-bleed sections */
+  overflow-x: hidden; /* Prevent horizontal scrollbars */
 }
 
 body.modal-open-react {
@@ -54,12 +54,13 @@ header .container {
     display: flex;
     align-items: center;
     margin-right: 15px;
+    flex-shrink: 0;
 }
 
 .header-logo {
-  height: 70px;
+  height: 50px; /* Slightly smaller base logo for better mobile header */
   width: auto;
-  max-width: 140px;
+  max-width: 110px;
   vertical-align: middle;
 }
 
@@ -84,7 +85,7 @@ nav ul li a {
     border-radius: 4px 4px 0 0;
     transition: background-color 0.3s ease, color 0.3s ease;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Slightly smaller base font for nav items */
 }
 
 nav ul li a:hover,
@@ -102,7 +103,7 @@ nav ul li a.active {
   background: none;
   border: none;
   color: white;
-  font-size: 28px;
+  font-size: 24px; /* Slightly smaller hamburger */
   cursor: pointer;
   padding: 5px;
   z-index: 1001;
@@ -129,7 +130,7 @@ nav ul li a.active {
 .notification-ticker span {
   display: inline-block;
   padding: 0 20px;
-  font-size: 0.85rem;
+  font-size: 0.8rem; /* Slightly smaller ticker text */
   font-weight: 500;
 }
 
@@ -153,32 +154,32 @@ nav ul li a.active {
 /* --- College Branding Section Styles --- */
 .college-branding-section {
   width: 100%;
-  padding: 15px 0;
+  padding: 10px 0; /* Reduced padding */
   background-color: #f8f9fa;
   text-align: center;
   border-bottom: 1px solid #dee2e6;
 }
 
 .college-branding-content h1 {
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 4vw, 1.8rem); /* Fluid font size */
   color: #003366;
   font-weight: bold;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
   display: block;
 }
 
 .college-branding-content h2 {
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem); /* Fluid font size */
   color: #003366;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   font-weight: 500;
   display: block;
 }
 
 .college-branding-content p {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem); /* Fluid font size */
   color: #495057;
-  margin-top: 5px;
+  margin-top: 3px;
   padding: 0 10px;
 }
 
@@ -186,11 +187,11 @@ nav ul li a.active {
 .cta-btn {
     background: #0779e4;
     color: #fff;
-    padding: 10px 20px;
+    padding: 8px 18px; /* Slightly smaller base padding */
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Slightly smaller base font */
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -201,94 +202,67 @@ nav ul li a.active {
 }
 /* ... (cta hover and secondary styles remain similar) ... */
 
-/* --- Hero Section Split Styles --- */
-.hero-section-split {
-  display: flex;
-  flex-direction: column; /* Stack columns on mobile by default */
-  /* Full-bleed for mobile, assuming parent has 15px padding each side */
-  width: calc(100% + 30px); /* Parent width + 15px left + 15px right padding */
-  margin-left: -15px;    /* Pull left to cover parent's left padding */
-  margin-right: -15px;   /* Pull right to cover parent's right padding */
-  min-height: auto;
-  background-color: #f0f0f0;
-  position: relative;
-}
 
-.hero-left-column {
-  width: 100%; /* Full width when stacked */
+/* --- Single Full-Width Hero Slideshow Styles --- */
+.hero-slideshow-full {
+  width: 100%;
+  height: 55vh; /* Base height relative to viewport height */
+  min-height: 300px; /* Absolute minimum height for very small/wide screens */
+  max-height: 550px; /* Absolute maximum height */
   position: relative;
-  transition: background-image 1s ease-in-out;
   background-size: cover;
-  background-position: center;
-  min-height: 300px; /* Reduced min-height for mobile slideshow */
-  border: 3px solid black;
+  background-position: center center; /* Ensure it's always centered */
+  transition: background-image 0.8s ease-in-out; /* Slightly faster transition */
+  border-top: 2px solid black; /* Slightly thinner border */
+  border-bottom: 2px solid black;
 }
 
 .slideshow-college-name {
   position: absolute;
-  top: 15px;
+  top: 15px; /* Closer to top */
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
-  padding: 6px 12px;
-  border-radius: 5px;
-  font-size: 1.2rem;
+  padding: 5px 12px; /* More compact padding */
+  border-radius: 4px;
+  font-size: clamp(0.9rem, 3vw, 1.3rem); /* Fluid font size */
   font-weight: bold;
   text-align: center;
   z-index: 5;
-  white-space: nowrap;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-.hero-right-column {
-  width: 100%; /* Full width when stacked */
-  background-color: #fff8e1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: auto;
+  max-width: 85%; /* Allow text to use more width before wrapping */
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
 }
 
 .slideshow-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.3);
   color: white;
   border: none;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 22px); /* Fluid arrow size */
   font-weight: bold;
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: clamp(30px, 8vw, 38px); /* Fluid width */
+  height: clamp(30px, 8vw, 38px); /* Fluid height */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
   line-height: 1;
 }
+.slideshow-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.55);
+}
 
 .slideshow-arrow.prev {
-  left: 10px;
+  left: 8px; /* Closer to edge */
 }
 .slideshow-arrow.next {
-  right: 10px;
-}
-
-.hero-inset-images img {
-  max-width: 80px;
-}
-.hero-inset-images img.founder-image {
-  max-width: 100px;
-}
-.hero-quote-section blockquote {
-  font-size: 1rem;
+  right: 8px; /* Closer to edge */
 }
 
 /* --- Main Content Area --- */
@@ -297,7 +271,7 @@ main {
 }
 
 .container {
-    padding: 0 15px; /* Default side padding for mobile */
+    padding: 0 15px;
 }
 
 main .container {
@@ -306,11 +280,11 @@ main .container {
 }
 
 main h2 {
-    font-size: 1.6rem;
+    font-size: clamp(1.4rem, 5vw, 1.6rem); /* Fluid font size */
     margin-bottom: 15px;
 }
 main h3 {
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 4vw, 1.3rem); /* Fluid font size */
     margin-top: 1rem;
     margin-bottom: 0.8rem;
 }
@@ -318,28 +292,22 @@ main h3 {
 /* --- About Page Slideshow Styles --- */
 .about-slideshow-container {
   width: 100%;
-  height: 300px;
+  height: 50vh;
+  min-height: 280px;
+  max-height: 400px; /* Reduced max height */
   margin-bottom: 20px;
-  /* If this also needs to be full-bleed like hero, apply similar logic: */
-  /* width: calc(100% + 30px); */ /* Assuming parent .container has padding: 0 15px; */
-  /* margin-left: -15px;    */
-  /* margin-right: -15px;   */
   overflow: hidden;
   position: relative;
   background-color: #f0f0f0;
 }
-/* ... (rest of styles remain the same) ... */
-
-/* --- Department Card Grid styles ... --- */
+/* ... (rest of styles for department cards, footer, etc. remain similar) ... */
 .department-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 15px; /* Slightly reduced gap */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Slightly smaller min for cards */
+  gap: 15px;
   margin-top: 20px;
 }
-/* ... (rest of Department Card styles) ... */
 
-/* --- Footer Styling --- */
 footer {
     background: #333;
     color: #aaa;
@@ -353,45 +321,36 @@ footer .container {
     padding: 0 15px;
 }
 
-
 /* --- MEDIA QUERIES --- */
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  header .container {
-    padding: 0 20px; /* Restore original padding */
-  }
-  .logo-container {
-    margin-right: 30px; /* Restore space */
-  }
   .header-logo {
-    height: 90px; /* Restore original logo size */
-    max-width: 160px;
+    height: 70px; /* Adjusted desktop logo size */
+    max-width: 130px;
   }
-
-  /* Navigation for Desktop */
+  nav ul li a {
+    padding: 12px 15px; /* Adjusted desktop nav padding */
+    font-size: 0.95rem;
+  }
+  .hamburger-menu {
+    display: none !important;
+  }
+  nav { flex-grow: 1; } /* Restore flex-grow for nav on desktop */
   nav ul {
-    display: flex !important; /* Ensure it's flex, overriding mobile styles */
+    display: flex !important;
     flex-direction: row;
     position: static;
     width: auto;
     background-color: transparent;
     padding: 0;
   }
-  nav ul li {
-    margin: 0; /* Reset mobile margins */
-  }
-  nav ul li a {
-    padding: 12px 18px; /* Restore original padding */
-    font-size: 1rem; /* Restore original font size */
-  }
-  .hamburger-menu {
-    display: none !important; /* Hide hamburger on desktop */
-  }
+  nav ul li { margin: 0; }
+
 
   .notification-ticker span {
-    padding: 0 25px; /* Restore padding */
-    font-size: 0.9rem; /* Restore font size */
+    padding: 0 25px;
+    font-size: 0.9rem;
   }
 
   .college-branding-content {
@@ -401,13 +360,13 @@ footer .container {
     flex-wrap: wrap;
   }
   .college-branding-content h1 {
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 4vw, 2.2rem); /* Fluid */
     margin-right: 15px;
     margin-bottom: 0;
     display: inline-block;
   }
   .college-branding-content h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.5rem, 3.5vw, 1.8rem); /* Fluid */
     margin-bottom: 0;
     display: inline-block;
   }
@@ -416,55 +375,39 @@ footer .container {
     padding: 0;
   }
 
-  .hero-section-split {
-    flex-direction: row; /* Side-by-side columns on tablets and up */
-    min-height: 500px;
-    /* Full-bleed for desktop, assuming parent .container has 20px padding each side */
-    width: calc(100% + 40px);
-    margin-left: -20px;
-    margin-right: -20px;
-  }
-  .hero-left-column {
-    flex: 1 1 60%;
+  .hero-slideshow-full {
+    height: 65vh; /* Adjusted desktop height */
     min-height: 400px;
-  }
-  .hero-right-column {
-    flex: 1 1 40%;
-    min-height: 400px;
-    padding: 30px;
+    max-height: 650px;
   }
   .slideshow-college-name {
-    font-size: 1.6rem;
-    padding: 8px 18px;
-    top: 20px;
+    font-size: clamp(1.6rem, 3.5vw, 2rem); /* Fluid font size */
+    padding: 10px 20px;
+    top: 25px;
+    white-space: nowrap;
   }
   .slideshow-arrow {
-    font-size: 28px;
-    width: 48px;
-    height: 48px;
+    font-size: clamp(24px, 4vw, 28px);
+    width: clamp(40px, 6vw, 48px);
+    height: clamp(40px, 6vw, 48px);
   }
   .slideshow-arrow.prev { left: 20px; }
   .slideshow-arrow.next { right: 20px; }
-  .hero-inset-images img { max-width: 100px; }
-  .hero-inset-images img.founder-image { max-width: 120px; }
-  .hero-quote-section blockquote { font-size: 1.1rem; }
 
   .container {
-    padding: 0 20px; /* Restore original side padding for desktop */
+    padding: 0 20px;
   }
   main .container {
     padding-top: 30px;
     padding-bottom: 30px;
   }
-  main h2 { font-size: 2rem; }
-  main h3 { font-size: 1.6rem; }
+  main h2 { font-size: clamp(1.8rem, 5vw, 2rem); } /* Fluid */
+  main h3 { font-size: clamp(1.4rem, 4vw, 1.6rem); } /* Fluid */
 
   .about-slideshow-container {
-    height: 450px;
-    /* If this also needs to be full-bleed like hero, apply similar logic for desktop: */
-    /* width: calc(100% + 40px); */ /* Assuming parent .container has padding: 0 20px; */
-    /* margin-left: -20px;    */
-    /* margin-right: -20px;   */
+    height: 55vh;
+    min-height: 350px;
+    max-height: 500px;
   }
   .department-card-grid { gap: 25px; }
   footer { padding: 20px 0; font-size: 0.9rem; }
@@ -476,11 +419,26 @@ footer .container {
   header .container {
     position: relative;
   }
-  nav ul {
+  header .container nav {
+    flex-grow: 0;
+    order: 2;
+  }
+  header .container .cta-btn {
+    order: 3;
+    padding: 6px 10px; /* Smaller button on mobile */
+    font-size: 0.75rem;
+    margin-left: auto;
+  }
+  .logo-container {
+    order: 1;
+    margin-right: auto;
+  }
+
+  nav ul { /* Mobile dropdown menu */
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 100%;
+    top: 100%; /* Position below the header */
     left: 0;
     width: 100%;
     background-color: #3a3a3a;
@@ -497,7 +455,7 @@ footer .container {
     margin: 0;
   }
   nav ul li a {
-    padding: 15px 20px;
+    padding: 12px 20px; /* Decent tap area */
     border-bottom: 1px solid #444;
     border-radius: 0;
   }

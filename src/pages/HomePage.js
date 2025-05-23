@@ -3,17 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // --- Import Modal and Form Components ---
-import Modal from '../components/Modal'; // Adjust path if your components folder is elsewhere
-import InquiryForm from '../components/InquiryForm'; // Adjust path
-import NotificationTicker from '../components/NotificationTicker'; // Corrected path
+import Modal from '../components/Modal';
+import InquiryForm from '../components/InquiryForm';
+import NotificationTicker from '../components/NotificationTicker';
 
-// --- Import Images ---
+// --- Import Images for Slideshow ---
 import slideImage1 from '../assets/images/campus-slide-1.JPG';
 import slideImage2 from '../assets/images/campus-slide-2.JPG';
 import slideImage3 from '../assets/images/campus-slide-3.JPG';
-import insetImage1 from '../assets/images/inset-image-1.jpg';
-import insetImage2 from '../assets/images/inset-image-2.jpg';
-import founderImage from '../assets/images/founder-portrait.jpg';
 
 const slideshowImages = [
   slideImage1,
@@ -35,7 +32,6 @@ function HomePage() {
     document.body.classList.remove('modal-open-react');
   };
 
-  // --- Functions to handle slideshow navigation ---
   const goToPreviousSlide = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? slideshowImages.length - 1 : prevIndex - 1
@@ -47,13 +43,11 @@ function HomePage() {
       prevIndex === slideshowImages.length - 1 ? 0 : prevIndex + 1
     );
   };
-  // --- End of slideshow navigation functions ---
-
 
   useEffect(() => {
-    const timer = setInterval(goToNextSlide, 5000); // Use goToNextSlide for auto-play
+    const timer = setInterval(goToNextSlide, 5000);
     return () => clearInterval(timer);
-  }, []); // Removed currentImageIndex from dependencies to prevent timer reset on manual nav
+  }, []);
 
   useEffect(() => {
     const modalTimer = setTimeout(() => {
@@ -62,7 +56,8 @@ function HomePage() {
     return () => clearTimeout(modalTimer);
   }, []);
 
-  const leftColumnStyle = {
+  // Renamed to heroSlideshowStyle for clarity with the new class name
+  const heroSlideshowStyle = {
     backgroundImage: `url(${slideshowImages[currentImageIndex]})`,
   };
 
@@ -70,65 +65,53 @@ function HomePage() {
     <div> {/* Outermost div for the HomePage component */}
       <NotificationTicker /> {/* Notification ticker right below the header */}
 
-      {/* --- College Branding Section (Mimicking the example) --- */}
+      {/* --- College Branding Section --- */}
       <div className="college-branding-section">
         <div className="college-branding-content">
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', flexWrap: 'wrap' }}> {/* Wrapper for H1 and H2 */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', flexWrap: 'wrap', marginBottom: '10px' }}>
             <h1 style={{ marginRight: '10px' }}>UDAY PRATAP COLLEGE, VARANASI</h1>
             <h2>उदय प्रताप महाविद्यालय, वाराणसी</h2>
           </div>
-          <p>(Affiliated to Mahatma Gandhi Kashi Vidyapith, Varanasi)</p>
+          <p style={{ marginBottom: '15px' }}>(Affiliated to Mahatma Gandhi Kashi Vidyapith, Varanasi)</p>
+          {/* Social Media Links */}
+          <div className="college-social-media-links">
+            <a href="https://facebook.com/yourcollegepage" target="_blank" rel="noopener noreferrer" aria-label="Facebook">FB</a>
+            <a href="https://twitter.com/yourcollegehandle" target="_blank" rel="noopener noreferrer" aria-label="Twitter">TW</a>
+            <a href="https://instagram.com/yourcollegehandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
+            <a href="https://linkedin.com/school/yourcollegepage" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LI</a>
+            <a href="https://youtube.com/yourcollegechannel" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+          </div>
         </div>
       </div>
 
-      {/* --- Hero Section (Two-Column Split) --- */}
-      <div className="hero-section-split">
-        {/* Left Column (Slideshow Background) */}
-        <div
-          className="hero-left-column hero-slideshow"
-          style={leftColumnStyle}
+      {/* --- Single Full-Width Hero Slideshow Section --- */}
+      <div
+        className="hero-slideshow-full" // Using the class intended for single, full-width slideshow
+        style={heroSlideshowStyle}
+      >
+        {/* College Name Overlay on the slideshow - REMOVED / COMMENTED OUT */}
+        {/*
+        <div className="slideshow-college-name">
+          Uday Pratap Mahavidyalay
+        </div>
+        */}
+
+        {/* Slideshow Arrow Buttons */}
+        <button
+          className="slideshow-arrow prev"
+          onClick={goToPreviousSlide}
+          aria-label="Previous slide"
         >
-          {/* College Name Overlay (already present, could be removed if branding section is preferred) */}
-          {/* <div className="slideshow-college-name">
-            Uday Pratap Mahavidyalay
-          </div> */}
-
-          {/* Slideshow Arrow Buttons */}
-          <button
-            className="slideshow-arrow prev"
-            onClick={goToPreviousSlide}
-            aria-label="Previous slide"
-          >
-            &#10094;
-          </button>
-          <button
-            className="slideshow-arrow next"
-            onClick={goToNextSlide}
-            aria-label="Next slide"
-          >
-            &#10095;
-          </button>
-        </div>
-
-        {/* Right Column (Content Area) */}
-        <div className="hero-right-column">
-           <div className="hero-inset-images">
-              <img src={insetImage1} alt="Campus detail 1" />
-              <img src={founderImage} alt="Founder Portrait" className="founder-image"/>
-              <img src={insetImage2} alt="Campus detail 2" />
-           </div>
-           <div className="hero-quote-section">
-              <blockquote>
-                "Our country will prosper when our children along with mother's milk acquire in their hearts patriotism, love for motherland, love for Bharat"
-              </blockquote>
-              <cite>– Mahamana Pt. Madan Mohan Malviya</cite>
-           </div>
-            <div className="hero-buttons">
-                <Link to="/admissions" className="cta-btn hero-cta">Apply Now</Link>
-                <Link to="/academics" className="cta-btn hero-cta">Explore Programs</Link>
-            </div>
-        </div>
-      </div> {/* End of hero-section-split */}
+          ❮ {/* Left arrow HTML entity */}
+        </button>
+        <button
+          className="slideshow-arrow next"
+          onClick={goToNextSlide}
+          aria-label="Next slide"
+        >
+          ❯ {/* Right arrow HTML entity */}
+        </button>
+      </div> {/* End of hero-slideshow-full */}
 
       {/* --- Other Homepage Content --- */}
       <div style={{ width: '100%', paddingTop: '30px', paddingBottom: '30px' }}>
