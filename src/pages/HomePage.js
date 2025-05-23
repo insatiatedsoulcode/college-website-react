@@ -7,6 +7,9 @@ import Modal from '../components/Modal';
 import InquiryForm from '../components/InquiryForm';
 import NotificationTicker from '../components/NotificationTicker';
 
+// --- Import Social Media Icons ---
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
+
 // --- Import Images for Slideshow ---
 import slideImage1 from '../assets/images/campus-slide-1.JPG';
 import slideImage2 from '../assets/images/campus-slide-2.JPG';
@@ -56,7 +59,6 @@ function HomePage() {
     return () => clearTimeout(modalTimer);
   }, []);
 
-  // Renamed to heroSlideshowStyle for clarity with the new class name
   const heroSlideshowStyle = {
     backgroundImage: `url(${slideshowImages[currentImageIndex]})`,
   };
@@ -73,20 +75,20 @@ function HomePage() {
             <h2>उदय प्रताप महाविद्यालय, वाराणसी</h2>
           </div>
           <p style={{ marginBottom: '15px' }}>(Affiliated to Mahatma Gandhi Kashi Vidyapith, Varanasi)</p>
-          {/* Social Media Links */}
+          {/* Social Media Links with Icons */}
           <div className="college-social-media-links">
-            <a href="https://facebook.com/yourcollegepage" target="_blank" rel="noopener noreferrer" aria-label="Facebook">FB</a>
-            <a href="https://twitter.com/yourcollegehandle" target="_blank" rel="noopener noreferrer" aria-label="Twitter">TW</a>
-            <a href="https://instagram.com/yourcollegehandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
-            <a href="https://linkedin.com/school/yourcollegepage" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LI</a>
-            <a href="https://youtube.com/yourcollegechannel" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+            <a href="https://facebook.com/yourcollegepage" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebookF /></a>
+            <a href="https://twitter.com/yourcollegehandle" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><FaTwitter /></a>
+            <a href="https://instagram.com/yourcollegehandle" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
+            <a href="https://linkedin.com/school/yourcollegepage" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+            <a href="https://youtube.com/yourcollegechannel" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><FaYoutube /></a>
           </div>
         </div>
       </div>
 
       {/* --- Single Full-Width Hero Slideshow Section --- */}
       <div
-        className="hero-slideshow-full" // Using the class intended for single, full-width slideshow
+        className="hero-slideshow-full"
         style={heroSlideshowStyle}
       >
         {/* College Name Overlay on the slideshow - REMOVED / COMMENTED OUT */}
