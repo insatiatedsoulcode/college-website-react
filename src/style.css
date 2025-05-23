@@ -5,9 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your other global styles, like body.modal-open-react, can go below these */
 body {
-  font-family: 'Inter', sans-serif; /* Example global font */
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden; /* Prevent horizontal scrollbars from full-bleed sections */
 }
 
@@ -25,28 +24,27 @@ body.modal-open-react {
 }
 
 body {
-    font-family: sans-serif; /* Consider choosing a specific font */
+    font-family: sans-serif;
     line-height: 1.6;
     color: #333;
 }
 
 /* --- Header Styling --- */
 header {
-    background: #333; /* Dark header background */
+    background: #333;
     color: #fff;
-    padding: 0.75rem 0; /* Vertical padding for the header */
-    border-bottom: 3px solid #0779e4; /* Accent border */
+    padding: 0.75rem 0;
+    border-bottom: 3px solid #0779e4;
     width: 100%;
-    position: sticky; /* Optional: Makes header stick on scroll */
+    position: sticky;
     top: 0;
-    z-index: 1000; /* Ensure header is above other content if sticky, higher z-index */
+    z-index: 1000;
 }
 
-/* Container within Header (for padding) */
 header .container {
-    padding: 0 20px; /* Keep side padding for spacing from edge */
+    padding: 0 15px; /* Default mobile padding */
     display: flex;
-    justify-content: space-between; /* Keeps button to the right */
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -55,18 +53,19 @@ header .container {
     padding: 0;
     display: flex;
     align-items: center;
-    margin-right: 30px; /* Space between logo and nav */
+    margin-right: 15px;
 }
 
 .header-logo {
-  height: 90px; /* Adjust logo height */
-  width: 160px;
+  height: 70px;
+  width: auto;
+  max-width: 140px;
   vertical-align: middle;
 }
 
 /* --- Navigation Styling --- */
 nav {
-  flex-grow: 1; /* Let nav push button to the right */
+  flex-grow: 1;
 }
 
 nav ul {
@@ -79,500 +78,433 @@ nav ul {
 
 nav ul li a {
     display: block;
-    padding: 12px 18px;
+    padding: 10px 12px;
     color: #fff;
     text-decoration: none;
     border-radius: 4px 4px 0 0;
     transition: background-color 0.3s ease, color 0.3s ease;
     white-space: nowrap;
+    font-size: 0.9rem;
 }
 
-nav ul li a:hover {
-    background-color: #555;
+nav ul li a:hover,
+nav ul li a.active {
+    background-color: #0779e4;
     color: #fff;
 }
 
 nav ul li a.active {
-    background-color: #0779e4;
-    color: #fff;
     font-weight: bold;
 }
-/* --- College Branding Section Styles --- */
-.college-branding-section {
-  width: 100%;
-  padding: 20px 0; /* Vertical padding */
-  background-color: #f8f9fa; /* Light grey background, adjust as needed */
-  text-align: center;
-  border-bottom: 1px solid #dee2e6; /* Optional border */
-  /* If this section is inside a padded .container and needs to be full-bleed: */
-  /* width: calc(100% + 40px); */ /* Assuming parent .container has padding: 0 20px; */
-  /* margin-left: -20px;    */
-  /* margin-right: -20px;   */
-}
 
-.college-branding-content h1 {
-  font-size: 2.2rem; /* Adjust size */
-  color: #003366; /* Dark blue, similar to example's main text */
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: inline-block; /* For side-by-side layout with h2 if not using flex on parent */
-  vertical-align: baseline;
+.hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
 }
-
-.college-branding-content h2 {
-  font-size: 1.8rem; /* Adjust size for Hindi name */
-  color: #003366;
-  margin-bottom: 8px;
-  font-weight: 500; /* Slightly less bold than h1 */
-  display: inline-block; /* For side-by-side layout with h1 if not using flex on parent */
-  vertical-align: baseline;
-}
-
-.college-branding-content p {
-  font-size: 1rem;
-  color: #495057; /* Slightly lighter text */
-  margin-top: 5px; /* Add some space above the affiliation */
-}
-/* --- End of College Branding Section Styles --- */
-
 
 /* --- Notification Ticker Styles --- */
 .notification-ticker-container {
-  background-color: #fff8e1; /* Light yellow, similar to hero right column */
-  color: #333; /* Dark text for readability */
-  padding: 10px 10; /* Vertical padding */
-  width: 150%;
-  overflow: hidden; /* Important for the scrolling effect */
-  border-bottom: 1px solid #e0e0e0; /* Optional subtle border */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional subtle shadow */
+  background-color: #fff8e1;
+  color: #333;
+  padding: 8px 0;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .notification-ticker {
-  display: inline-block; /* Allows animation of transform */
-  white-space: nowrap; /* Keeps all items in a single line */
-  padding-left: 100%; /* Start the ticker off-screen to the right */
-  animation: ticker-scroll 30s linear infinite; /* Adjust duration for speed */
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: ticker-scroll 30s linear infinite;
 }
 
 .notification-ticker span {
   display: inline-block;
-  padding: 0 25px; /* Spacing between notification items */
-  font-size: 0.9rem;
+  padding: 0 20px;
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
 .notification-ticker span a {
-  color: #0779e4; /* Link color */
+  color: #0779e4;
   text-decoration: none;
 }
 .notification-ticker span a:hover {
   text-decoration: underline;
 }
 
-/* Keyframes for the scrolling animation */
 @keyframes ticker-scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%); /* Scroll to the left until it's off-screen */
+    transform: translateX(-100%);
   }
 }
-/* --- End of Notification Ticker Styles --- */
 
+/* --- College Branding Section Styles --- */
+.college-branding-section {
+  width: 100%;
+  padding: 15px 0;
+  background-color: #f8f9fa;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.college-branding-content h1 {
+  font-size: 1.8rem;
+  color: #003366;
+  font-weight: bold;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.college-branding-content h2 {
+  font-size: 1.5rem;
+  color: #003366;
+  margin-bottom: 8px;
+  font-weight: 500;
+  display: block;
+}
+
+.college-branding-content p {
+  font-size: 0.9rem;
+  color: #495057;
+  margin-top: 5px;
+  padding: 0 10px;
+}
 
 /* --- Call To Action Button Styling --- */
 .cta-btn {
     background: #0779e4;
     color: #fff;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     display: inline-block;
     white-space: nowrap;
     margin: 5px;
-    flex-shrink: 0; /* Prevent button from shrinking */
+    flex-shrink: 0;
 }
-
-.cta-btn:hover {
-    background: #045aab;
-    transform: translateY(-2px);
-}
-
-/* Optional Secondary Button Style (used in Hero) */
-.cta-btn-secondary {
-    background: transparent;
-    color: #0779e4; /* Default color for secondary */
-    padding: 10px 23px; /* Adjust padding to align with primary */
-    border: 2px solid #0779e4; /* Border color */
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
-    white-space: nowrap;
-    margin: 5px;
-}
-
-.cta-btn-secondary:hover {
-    background-color: #0779e4; /* Fill background on hover */
-    color: #fff; /* White text on hover */
-    transform: translateY(-2px);
-}
-
-/* Specific override for secondary button in hero if needed */
-.hero-buttons .cta-btn-secondary {
-    color: #fff; /* White text in hero */
-    border-color: #fff; /* White border in hero */
-}
-.hero-buttons .cta-btn-secondary:hover {
-    background-color: #fff;
-    color: #0779e4; /* Blue text on hover */
-}
-
+/* ... (cta hover and secondary styles remain similar) ... */
 
 /* --- Hero Section Split Styles --- */
 .hero-section-split {
   display: flex;
-  /* Assuming parent .container has 'padding: 0 20px;' */
-  /* To make it full-bleed: */
-  width: calc(100% + 175px); /* Span the parent's width + its padding (20px left + 20px right) */
-  margin-left: -20px;    /* Pull left to cover parent's left padding */
-  margin-right: -20px;   /* Pull right to cover parent's right padding */
-  /* End of full-bleed adjustments */
-  min-height: 500px; /* Adjust minimum height as needed */
-  background-color: #f0f0f0; /* Fallback background, usually covered by columns */
-  flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+  flex-direction: column; /* Stack columns on mobile by default */
+  /* Full-bleed for mobile, assuming parent has 15px padding each side */
+  width: calc(100% + 30px); /* Parent width + 15px left + 15px right padding */
+  margin-left: -15px;    /* Pull left to cover parent's left padding */
+  margin-right: -15px;   /* Pull right to cover parent's right padding */
+  min-height: auto;
+  background-color: #f0f0f0;
   position: relative;
 }
 
 .hero-left-column {
-  flex: 1 1 100%; /* Takes up ~60% of the width, can grow/shrink */
-  position: relative; /* For potential overlay content AND arrow buttons */
-  transition: background-image 1s ease-in-out; /* 1 second fade effect */
+  width: 100%; /* Full width when stacked */
+  position: relative;
+  transition: background-image 1s ease-in-out;
   background-size: cover;
   background-position: center;
-  min-height: 400px; /* Ensure minimum height when wrapped */
-  border: 3px solid black; /* Black border around the slideshow */
-  /* box-sizing: border-box; /* Ensures border doesn't add to the width/height affecting flex calculations */
+  min-height: 300px; /* Reduced min-height for mobile slideshow */
+  border: 3px solid black;
 }
 
-/* .hero-slideshow class is used in JS but might not need separate styles if .hero-left-column covers all */
-
-
-/* --- Slideshow College Name Overlay --- */
 .slideshow-college-name {
   position: absolute;
-  top: 20px; /* Adjust as needed for spacing from the top */
+  top: 15px;
   left: 50%;
-  transform: translateX(-50%); /* Center the text block */
-  background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent black background */
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.65);
   color: white;
-  padding: 8px 18px; /* Padding around the text */
-  border-radius: 5px; /* Optional rounded corners */
-  font-size: 1.6rem; /* Adjust font size as needed */
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
-  z-index: 5; /* Ensure it's above the image, but potentially below arrows if they overlap */
-  white-space: nowrap; /* Prevent text from wrapping if it's short */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Slight text shadow for readability */
+  z-index: 5;
+  white-space: nowrap;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
-/* End of Slideshow College Name Overlay --- */
-
-
-/* Optional overlay styles for left column (if different from college name) */
-.hero-overlay-content {
-    position: absolute;
-    bottom: 20px;
-    left: 20px; /* Will be 20px from the true screen edge now */
-    color: white;
-    z-index: 2;
-    background-color: rgba(0,0,0,0.5);
-    padding: 15px;
-    border-radius: 5px;
-}
-.hero-overlay-content h1 {
-    margin: 0;
-    font-size: 2rem;
-}
-
 
 .hero-right-column {
-  flex: 1 1 40%; /* Takes up ~40% of the width */
-  background-color: #fff8e1; /* Light yellow background - approximate */
-  padding: 30px; /* Internal padding for the content of this column */
+  width: 100%; /* Full width when stacked */
+  background-color: #fff8e1;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  min-height: 400px; /* Ensure minimum height when wrapped */
+  min-height: auto;
 }
 
-/* --- Slideshow Arrow Button Styles --- */
 .slideshow-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.35); /* Slightly more subtle background */
+  background-color: rgba(0, 0, 0, 0.35);
   color: white;
   border: none;
-  /* padding: 10px 15px; */ /* Using fixed width/height now */
-  font-size: 28px; /* Adjust size of arrow character */
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  z-index: 10; /* Ensure arrows are above the slideshow images and college name */
-  border-radius: 50%; /* Make them circular */
-  width: 48px; /* Fixed width */
-  height: 48px; /* Fixed height */
+  z-index: 10;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
-  line-height: 1; /* Helps center the arrow character */
-}
-
-.slideshow-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+  line-height: 1;
 }
 
 .slideshow-arrow.prev {
-  left: 20px; /* Position from the left edge of .hero-left-column, increased for visibility */
+  left: 10px;
 }
-
 .slideshow-arrow.next {
-  right: 20px; /* Position from the right edge of .hero-left-column, increased for visibility */
-}
-/* End of Slideshow Arrow Button Styles --- */
-
-
-.hero-inset-images {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Align images vertically */
-  gap: 15px; /* Space between images */
-  margin-bottom: 25px;
-  flex-wrap: wrap; /* Allow images to wrap if needed */
+  right: 10px;
 }
 
 .hero-inset-images img {
-  max-width: 100px; /* Max width for inset images */
-  height: auto;
-  border: 3px solid white; /* White border like example */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  border-radius: 4px; /* Optional rounded corners */
+  max-width: 80px;
 }
-
 .hero-inset-images img.founder-image {
-  max-width: 120px; /* Make founder image slightly larger */
-  border-radius: 50%; /* Make founder image round */
-  border-width: 4px;
+  max-width: 100px;
 }
-
-.hero-quote-section {
-  margin-top: 20px;
-  font-style: italic;
-  color: #555; /* Darker text for quote */
-  max-width: 90%; /* Adjusted width within its column */
-}
-
 .hero-quote-section blockquote {
-  margin-bottom: 10px;
-  font-size: 1.1rem; /* Slightly larger quote text */
-  line-height: 1.5;
+  font-size: 1rem;
 }
-
-.hero-quote-section cite {
-  font-size: 0.9rem;
-  font-style: normal;
-  color: #333;
-  font-weight: bold;
-}
-
-.hero-buttons {
-    margin-top: 30px;
-}
-/* Styles for buttons inside hero */
-.hero-cta {
-    margin: 10px 5px; /* Adjust margin */
-}
-
 
 /* --- Main Content Area --- */
 main {
     width: 100%;
 }
 
-/* General container class for padding/centering where needed */
 .container {
-    padding: 0 22px; /* Side padding - this creates the space that hero-section-split breaks out of */
+    padding: 0 15px; /* Default side padding for mobile */
 }
 
-/* Specific padding for containers within main if needed */
 main .container {
-    padding-top: 3px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
-
 
 main h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
 }
 main h3 {
-    font-size: 1.6rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    color: #333;
-}
-main hr {
-    border: none;
-    border-top: 1px solid #eee;
-    margin: 20px 0;
-}
-main ul {
-    list-style-position: inside;
-    padding-left: 0;
-}
-main li {
-    margin-bottom: 0.5rem;
-}
-main a {
-    color: #0779e4;
-    text-decoration: none;
-}
-main a:hover {
-    text-decoration: underline;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    margin-bottom: 0.8rem;
 }
 
-/* --- About Page Slideshow Styles (Full Width) --- */
+/* --- About Page Slideshow Styles --- */
 .about-slideshow-container {
   width: 100%;
-  /* If inside a .container with padding: 0 20px;, add these for full-bleed: */
-  /* width: calc(100% + 40px); */
-  /* margin-left: -20px;    */
-  /* margin-right: -20px;   */
-  height: 450px;
-  margin-bottom: 25px;
+  height: 300px;
+  margin-bottom: 20px;
+  /* If this also needs to be full-bleed like hero, apply similar logic: */
+  /* width: calc(100% + 30px); */ /* Assuming parent .container has padding: 0 15px; */
+  /* margin-left: -15px;    */
+  /* margin-right: -15px;   */
   overflow: hidden;
   position: relative;
   background-color: #f0f0f0;
 }
+/* ... (rest of styles remain the same) ... */
 
-.about-slideshow-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 1;
-  transition: opacity 1s ease-in-out;
-}
-
-.about-slideshow-image.fade-exit {
-    opacity: 0;
-}
-
-
-/* --- Department Card Grid Styles --- */
+/* --- Department Card Grid styles ... --- */
 .department-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
+  gap: 15px; /* Slightly reduced gap */
   margin-top: 20px;
 }
-
-.department-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-.department-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-.department-card-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-}
-.department-card-content {
-  padding: 20px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-.department-card-title {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
-.department-card-title a {
-  text-decoration: none;
-  color: #333;
-}
-.department-card-title a:hover {
-  color: #0779e4;
-}
-.department-card-description {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.5;
-  margin-bottom: 15px;
-  flex-grow: 1;
-}
-.department-card-button {
-  display: inline-block;
-  background-color: #0779e4;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 4px;
-  text-decoration: none;
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: auto;
-  transition: background-color 0.3s ease;
-}
-.department-card-button:hover {
-  background-color: #045aab;
-}
-
-
-/* --- Other General Styles --- */
-.page-image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  display: block;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+/* ... (rest of Department Card styles) ... */
 
 /* --- Footer Styling --- */
 footer {
     background: #333;
     color: #aaa;
     text-align: center;
-    padding: 20px 0; /* Vertical padding */
-    margin-top: 30px;
-    font-size: 0.9rem;
+    padding: 15px 0;
+    margin-top: 20px;
+    font-size: 0.85rem;
     width: 100%;
 }
-
 footer .container {
-    padding: 0 20px; /* Keep side padding */
+    padding: 0 15px;
+}
+
+
+/* --- MEDIA QUERIES --- */
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  header .container {
+    padding: 0 20px; /* Restore original padding */
+  }
+  .logo-container {
+    margin-right: 30px; /* Restore space */
+  }
+  .header-logo {
+    height: 90px; /* Restore original logo size */
+    max-width: 160px;
+  }
+
+  /* Navigation for Desktop */
+  nav ul {
+    display: flex !important; /* Ensure it's flex, overriding mobile styles */
+    flex-direction: row;
+    position: static;
+    width: auto;
+    background-color: transparent;
+    padding: 0;
+  }
+  nav ul li {
+    margin: 0; /* Reset mobile margins */
+  }
+  nav ul li a {
+    padding: 12px 18px; /* Restore original padding */
+    font-size: 1rem; /* Restore original font size */
+  }
+  .hamburger-menu {
+    display: none !important; /* Hide hamburger on desktop */
+  }
+
+  .notification-ticker span {
+    padding: 0 25px; /* Restore padding */
+    font-size: 0.9rem; /* Restore font size */
+  }
+
+  .college-branding-content {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .college-branding-content h1 {
+    font-size: 2.2rem;
+    margin-right: 15px;
+    margin-bottom: 0;
+    display: inline-block;
+  }
+  .college-branding-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+    display: inline-block;
+  }
+   .college-branding-content p {
+    font-size: 1rem;
+    padding: 0;
+  }
+
+  .hero-section-split {
+    flex-direction: row; /* Side-by-side columns on tablets and up */
+    min-height: 500px;
+    /* Full-bleed for desktop, assuming parent .container has 20px padding each side */
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .hero-left-column {
+    flex: 1 1 60%;
+    min-height: 400px;
+  }
+  .hero-right-column {
+    flex: 1 1 40%;
+    min-height: 400px;
+    padding: 30px;
+  }
+  .slideshow-college-name {
+    font-size: 1.6rem;
+    padding: 8px 18px;
+    top: 20px;
+  }
+  .slideshow-arrow {
+    font-size: 28px;
+    width: 48px;
+    height: 48px;
+  }
+  .slideshow-arrow.prev { left: 20px; }
+  .slideshow-arrow.next { right: 20px; }
+  .hero-inset-images img { max-width: 100px; }
+  .hero-inset-images img.founder-image { max-width: 120px; }
+  .hero-quote-section blockquote { font-size: 1.1rem; }
+
+  .container {
+    padding: 0 20px; /* Restore original side padding for desktop */
+  }
+  main .container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  main h2 { font-size: 2rem; }
+  main h3 { font-size: 1.6rem; }
+
+  .about-slideshow-container {
+    height: 450px;
+    /* If this also needs to be full-bleed like hero, apply similar logic for desktop: */
+    /* width: calc(100% + 40px); */ /* Assuming parent .container has padding: 0 20px; */
+    /* margin-left: -20px;    */
+    /* margin-right: -20px;   */
+  }
+  .department-card-grid { gap: 25px; }
+  footer { padding: 20px 0; font-size: 0.9rem; }
+  footer .container { padding: 0 20px; }
+}
+
+/* Mobile specific styles for navigation (when .mobile-nav-open is active) */
+@media (max-width: 767.98px) {
+  header .container {
+    position: relative;
+  }
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #3a3a3a;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 999;
+  }
+  nav ul.mobile-nav-open {
+    display: flex;
+  }
+  nav ul li {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+  nav ul li a {
+    padding: 15px 20px;
+    border-bottom: 1px solid #444;
+    border-radius: 0;
+  }
+  nav ul li:last-child a {
+    border-bottom: none;
+  }
+  .hamburger-menu {
+    display: block;
+  }
 }
