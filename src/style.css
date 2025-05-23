@@ -97,6 +97,44 @@ nav ul li a.active {
     color: #fff;
     font-weight: bold;
 }
+/* --- College Branding Section Styles --- */
+.college-branding-section {
+  width: 100%;
+  padding: 20px 0; /* Vertical padding */
+  background-color: #f8f9fa; /* Light grey background, adjust as needed */
+  text-align: center;
+  border-bottom: 1px solid #dee2e6; /* Optional border */
+  /* If this section is inside a padded .container and needs to be full-bleed: */
+  /* width: calc(100% + 40px); */ /* Assuming parent .container has padding: 0 20px; */
+  /* margin-left: -20px;    */
+  /* margin-right: -20px;   */
+}
+
+.college-branding-content h1 {
+  font-size: 2.2rem; /* Adjust size */
+  color: #003366; /* Dark blue, similar to example's main text */
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block; /* For side-by-side layout with h2 if not using flex on parent */
+  vertical-align: baseline;
+}
+
+.college-branding-content h2 {
+  font-size: 1.8rem; /* Adjust size for Hindi name */
+  color: #003366;
+  margin-bottom: 8px;
+  font-weight: 500; /* Slightly less bold than h1 */
+  display: inline-block; /* For side-by-side layout with h1 if not using flex on parent */
+  vertical-align: baseline;
+}
+
+.college-branding-content p {
+  font-size: 1rem;
+  color: #495057; /* Slightly lighter text */
+  margin-top: 5px; /* Add some space above the affiliation */
+}
+/* --- End of College Branding Section Styles --- */
+
 
 /* --- Notification Ticker Styles --- */
 .notification-ticker-container {

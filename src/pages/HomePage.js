@@ -56,36 +56,42 @@ function HomePage() {
   }, []); // Removed currentImageIndex from dependencies to prevent timer reset on manual nav
 
   useEffect(() => {
-    // Optional: Check if the modal has been shown before using localStorage
-    // const modalShownBefore = localStorage.getItem('inquiryModalShownHomePage');
-    // if (!modalShownBefore) {
-      const modalTimer = setTimeout(() => {
-        openInquiryModal();
-        // localStorage.setItem('inquiryModalShownHomePage', 'true');
-      }, 1500); // Pop up after 1.5 seconds (adjust as needed)
-
-      return () => clearTimeout(modalTimer); // Cleanup timer on component unmount
-    // }
-  }, []); // Empty dependency array means this effect runs only once on mount
-
+    const modalTimer = setTimeout(() => {
+      openInquiryModal();
+    }, 1500);
+    return () => clearTimeout(modalTimer);
+  }, []);
 
   const leftColumnStyle = {
     backgroundImage: `url(${slideshowImages[currentImageIndex]})`,
-    // backgroundSize, backgroundPosition, minHeight are now in CSS for .hero-left-column
   };
 
   return (
     <div> {/* Outermost div for the HomePage component */}
       <NotificationTicker /> {/* Notification ticker right below the header */}
 
+      {/* --- College Branding Section (Mimicking the example) --- */}
+      <div className="college-branding-section">
+        <div className="college-branding-content">
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'baseline', flexWrap: 'wrap' }}> {/* Wrapper for H1 and H2 */}
+            <h1 style={{ marginRight: '10px' }}>UDAY PRATAP COLLEGE, VARANASI</h1>
+            <h2>उदय प्रताप महाविद्यालय, वाराणसी</h2>
+          </div>
+          <p>(Affiliated to Mahatma Gandhi Kashi Vidyapith, Varanasi)</p>
+        </div>
+      </div>
+
       {/* --- Hero Section (Two-Column Split) --- */}
       <div className="hero-section-split">
         {/* Left Column (Slideshow Background) */}
         <div
-          className="hero-left-column hero-slideshow" // hero-slideshow class might not be needed if all styles are on hero-left-column
+          className="hero-left-column hero-slideshow"
           style={leftColumnStyle}
         >
-
+          {/* College Name Overlay (already present, could be removed if branding section is preferred) */}
+          {/* <div className="slideshow-college-name">
+            Uday Pratap Mahavidyalay
+          </div> */}
 
           {/* Slideshow Arrow Buttons */}
           <button
@@ -93,22 +99,15 @@ function HomePage() {
             onClick={goToPreviousSlide}
             aria-label="Previous slide"
           >
-            &#10094; {/* Left arrow HTML entity */}
+            &#10094;
           </button>
           <button
             className="slideshow-arrow next"
             onClick={goToNextSlide}
             aria-label="Next slide"
           >
-            &#10095; {/* Right arrow HTML entity */}
+            &#10095;
           </button>
-
-          {/* Optional Overlay Content can go here if needed later */}
-          {/* Example:
-          <div className="hero-overlay-content">
-            <h1>Current Slide Title</h1>
-          </div>
-          */}
         </div>
 
         {/* Right Column (Content Area) */}
@@ -132,9 +131,8 @@ function HomePage() {
       </div> {/* End of hero-section-split */}
 
       {/* --- Other Homepage Content --- */}
-      {/* This div is styled for full-width background, with inner div for padded text content */}
       <div style={{ width: '100%', paddingTop: '30px', paddingBottom: '30px' }}>
-        <div style={{ paddingLeft: '20px', paddingRight: '20px' }}> {/* Inner padding for text */}
+        <div style={{ paddingLeft: '20px', paddingRight: '20px' }}>
           <h2>Welcome to Uday Pratap College!</h2>
           <p>
             Welcome to Uday Pratap College! Our journey began in 2018, evolving from a small kindergarten into the full-fledged degree college we are today. We are proudly dedicated to serving the higher education needs of the younger generation, empowering them to achieve their academic and professional goals. Our commitment is to provide quality learning experiences that foster growth and prepare students for the future.
