@@ -102,8 +102,8 @@ nav ul li a.active {
 .notification-ticker-container {
   background-color: #fff8e1; /* Light yellow, similar to hero right column */
   color: #333; /* Dark text for readability */
-  padding: 8px 0; /* Vertical padding */
-  width: 100%;
+  padding: 10px 10; /* Vertical padding */
+  width: 150%;
   overflow: hidden; /* Important for the scrolling effect */
   border-bottom: 1px solid #e0e0e0; /* Optional subtle border */
   box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional subtle shadow */
@@ -374,12 +374,12 @@ main {
 
 /* General container class for padding/centering where needed */
 .container {
-    padding: 0 20px; /* Side padding - this creates the space that hero-section-split breaks out of */
+    padding: 0 22px; /* Side padding - this creates the space that hero-section-split breaks out of */
 }
 
 /* Specific padding for containers within main if needed */
 main .container {
-    padding-top: 30px;
+    padding-top: 3px;
     padding-bottom: 30px;
 }
 
