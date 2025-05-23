@@ -56,11 +56,18 @@ function HomePage() {
   }, []); // Removed currentImageIndex from dependencies to prevent timer reset on manual nav
 
   useEffect(() => {
-    const modalTimer = setTimeout(() => {
-      openInquiryModal();
-    }, 1500);
-    return () => clearTimeout(modalTimer);
-  }, []);
+    // Optional: Check if the modal has been shown before using localStorage
+    // const modalShownBefore = localStorage.getItem('inquiryModalShownHomePage');
+    // if (!modalShownBefore) {
+      const modalTimer = setTimeout(() => {
+        openInquiryModal();
+        // localStorage.setItem('inquiryModalShownHomePage', 'true');
+      }, 1500); // Pop up after 1.5 seconds (adjust as needed)
+
+      return () => clearTimeout(modalTimer); // Cleanup timer on component unmount
+    // }
+  }, []); // Empty dependency array means this effect runs only once on mount
+
 
   const leftColumnStyle = {
     backgroundImage: `url(${slideshowImages[currentImageIndex]})`,
@@ -68,13 +75,18 @@ function HomePage() {
   };
 
   return (
-    <div>
-    <NotificationTicker />
+    <div> {/* Outermost div for the HomePage component */}
+      <NotificationTicker /> {/* Notification ticker right below the header */}
+
+      {/* --- Hero Section (Two-Column Split) --- */}
       <div className="hero-section-split">
+        {/* Left Column (Slideshow Background) */}
         <div
           className="hero-left-column hero-slideshow" // hero-slideshow class might not be needed if all styles are on hero-left-column
           style={leftColumnStyle}
         >
+
+
           {/* Slideshow Arrow Buttons */}
           <button
             className="slideshow-arrow prev"
@@ -91,7 +103,7 @@ function HomePage() {
             &#10095; {/* Right arrow HTML entity */}
           </button>
 
-          {/* Optional Overlay Content can go here */}
+          {/* Optional Overlay Content can go here if needed later */}
           {/* Example:
           <div className="hero-overlay-content">
             <h1>Current Slide Title</h1>
@@ -99,8 +111,8 @@ function HomePage() {
           */}
         </div>
 
+        {/* Right Column (Content Area) */}
         <div className="hero-right-column">
-          {/* ... (rest of your right column content remains the same) ... */}
            <div className="hero-inset-images">
               <img src={insetImage1} alt="Campus detail 1" />
               <img src={founderImage} alt="Founder Portrait" className="founder-image"/>
@@ -117,10 +129,12 @@ function HomePage() {
                 <Link to="/academics" className="cta-btn hero-cta">Explore Programs</Link>
             </div>
         </div>
-      </div>
+      </div> {/* End of hero-section-split */}
 
-      <div className="container" style={{ padding: '20px 20px' }}>
-        {/* ... (rest of your homepage content remains the same) ... */}
+      {/* --- Other Homepage Content --- */}
+      {/* This div is styled for full-width background, with inner div for padded text content */}
+      <div style={{ width: '100%', paddingTop: '30px', paddingBottom: '30px' }}>
+        <div style={{ paddingLeft: '20px', paddingRight: '20px' }}> {/* Inner padding for text */}
           <h2>Welcome to Uday Pratap College!</h2>
           <p>
             Welcome to Uday Pratap College! Our journey began in 2018, evolving from a small kindergarten into the full-fledged degree college we are today. We are proudly dedicated to serving the higher education needs of the younger generation, empowering them to achieve their academic and professional goals. Our commitment is to provide quality learning experiences that foster growth and prepare students for the future.
@@ -142,8 +156,10 @@ function HomePage() {
             <Link to="/admissions" style={{margin: '0 10px'}}>Admission Info</Link> |
             <Link to="/student-life" style={{margin: '0 10px'}}>Student Life</Link>
           </p>
-      </div>
+        </div>
+      </div> {/* End of "Welcome" section wrapper */}
 
+      {/* --- Render Modal with InquiryForm --- */}
       <Modal isOpen={isModalOpen} onClose={closeInquiryModal}>
           <InquiryForm onSuccess={closeInquiryModal} />
       </Modal>
