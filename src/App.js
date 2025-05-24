@@ -7,6 +7,9 @@ import Header from './components/Header'; // Your main site header
 import Footer from './components/Footer'; // Your main site footer
 
 // Import Page Components
+// IMPORTANT: Ensure each of these page components is correctly defined,
+// uses a default export (e.g., "export default HomePage;"),
+// and the import path here is correct.
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import AcademicsPage from './pages/AcademicsPage';
@@ -22,26 +25,23 @@ import NotFoundPage from './pages/NotFoundPage'; // Your 404 page
 import './style.css'; // Assuming your global styles are here
 
 // Layout Component: Defines the common structure for pages (Header, Footer)
-// The <Outlet /> component renders the matched child route's element.
+// The <Outlet /> component from react-router-dom is a placeholder where
+// the content of the matched child route will be rendered.
 function Layout() {
   return (
     <>
       <Header />
       <main>
         {/*
-          The class "container" here is from your style.css.
-          If you want some sections (like the hero on HomePage) to be full-width
-          and break out of this container's padding, those sections will need
-          specific CSS (like negative margins) or their parent (HomePage's root div)
-          should not be constrained by this .container if the Layout's main already is.
-
-          For simplicity, if most pages need a constrained width, this is okay.
-          Full-width sections within HomePage would then need to be handled carefully.
-          Alternatively, remove className="container" from main's div here,
-          and add <div className="container"> inside each page component that needs it.
+          The className="container" here applies padding based on your style.css.
+          If you want specific sections (like a hero banner on HomePage) to be
+          full-width (edge-to-edge), that section within its page component
+          would need CSS to "break out" of this container's padding (e.g., using
+          negative margins), or this div className="container" could be removed,
+          and each page component would manage its own main content container and padding.
         */}
-        <div className="container"> {/* This container might add padding to all pages */}
-          <Outlet />
+        <div className="container"> {/* This container applies padding to all pages rendered via Outlet */}
+          <Outlet /> {/* Child route components will be rendered here */}
         </div>
       </main>
       <Footer />
@@ -51,37 +51,49 @@ function Layout() {
 
 function App() {
   return (
-    <Router> {/* BrowserRouter provides the routing context */}
+    // BrowserRouter (aliased as Router) provides the routing context for your application.
+    // It uses the HTML5 history API to keep your UI in sync with the URL.
+    <Router>
       <Routes>
         {/*
-          This structure uses a Layout Route.
-          All routes nested within it will render inside the <Layout /> component,
-          replacing the <Outlet />.
+          This is a Layout Route. The `Layout` component is rendered for the path "/".
+          All child routes defined within it will also render inside the `Layout` component,
+          specifically where the <Outlet /> is placed in the Layout.
         */}
         <Route path="/" element={<Layout />}>
-          {/* When the path is exactly "/", render HomePage */}
+          {/*
+            The `index` route is the default child route for its parent.
+            When the URL is exactly "/", the HomePage component will be rendered
+            inside the Layout's <Outlet />.
+          */}
           <Route index element={<HomePage />} />
 
-          {/* Other top-level pages */}
+          {/* Other top-level pages. These paths are relative to the parent "/" route. */}
+          {/* e.g., "/about" will render AboutPage inside Layout's <Outlet /> */}
           <Route path="about" element={<AboutPage />} />
           <Route path="admissions" element={<AdmissionsPage />} />
           <Route path="student-life" element={<StudentLifePage />} />
           <Route path="contact" element={<ContactPage />} />
 
-          {/* Academics section with nested routes for departments */}
-          {/* When the path is "/academics", render AcademicsPage */}
+          {/*
+            Academics section.
+            "/academics" will render AcademicsPage inside Layout's <Outlet />.
+          */}
           <Route path="academics" element={<AcademicsPage />} />
-          {/* When path is "/academics/computer-science", render ComputerSciencePage */}
+          {/*
+            Department pages. These are also relative to the parent "/" route.
+            e.g., "/academics/computer-science" will render ComputerSciencePage
+            inside Layout's <Outlet />.
+          */}
           <Route path="academics/computer-science" element={<ComputerSciencePage />} />
           <Route path="academics/arts-humanities" element={<ArtsHumanitiesPage />} />
           <Route path="academics/business-administration" element={<BusinessAdminPage />} />
-          {/* Add more department routes here as children of "academics" if desired,
-              or keep them at the same level as above if AcademicsPage only lists them.
-              The current setup implies AcademicsPage might list departments, and these are
-              separate, more specific pages.
-          */}
 
-          {/* Catch-all route for any paths not matched above */}
+          {/*
+            Catch-all route for any paths not matched above.
+            This should always be the last route defined within this <Routes> block.
+            It will render the NotFoundPage inside Layout's <Outlet />.
+          */}
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
